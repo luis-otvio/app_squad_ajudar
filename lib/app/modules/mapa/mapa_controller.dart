@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:app_squad_ajudar/app/modules/mapa/models/coleta_model.dart';
+import 'package:app_squad_ajudar/app/modules/mapa/repositories/coleta_repository_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
@@ -11,6 +13,20 @@ part 'mapa_controller.g.dart';
 class MapaController = _MapaControllerBase with _$MapaController;
 
 abstract class _MapaControllerBase with Store {
+  final IColetaRepository repository;
+
+  @observable
+  ObservableStream<List<ColetaModel>> coletaList;
+
+  _MapaControllerBase(this.repository) {
+    getList();
+  }
+
+  @action
+  getList() {
+    coletaList = repository.getColetas().asObservable();
+  }
+
   @observable
   bool _mapToggle = false;
   bool get mapToggle => _mapToggle;

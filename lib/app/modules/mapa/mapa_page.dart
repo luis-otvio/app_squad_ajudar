@@ -1,3 +1,4 @@
+import 'package:app_squad_ajudar/app/modules/mapa/models/coleta_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -25,7 +26,38 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Stack(
+      body: Observer(builder: (_) {
+        if (controller.coletaList.hasError) {
+          return Center(
+            child: RaisedButton(
+                onPressed: controller.getList, child: Text("Error")),
+          );
+        }
+
+        if (controller.coletaList.data == null) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        List<ColetaModel> list = controller.coletaList.data;
+
+        return ListView.builder(
+          itemCount: list.length,
+          itemBuilder: (_, index) {
+            ColetaModel model = list[index];
+            return Card(
+              child: Column(
+                children: [
+                  Text(model.tipoColeta.toString()),
+                  Text(model.dia.toString()),
+                  Text("${model.pontoColeta.latitude}, ${model.pontoColeta.longitude}")
+                ],
+              ),
+            );
+          },
+        );
+      }),
+      /*       
+      Stack(
         children: [
           Observer(
             builder: (_) => controller.mapToggle
@@ -77,6 +109,7 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
           ])
         ],
       ),
+     */
     );
   }
 

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "782635023823",
+    "firebase_url": "https://app-squad-ajudar-f6f76.firebaseio.com",
+    "project_id": "app-squad-ajudar-f6f76",
+    "storage_bucket": "app-squad-ajudar-f6f76.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782635023823:android:57bcbedea63b3817c766ba",
+        "android_client_info": {
+          "package_name": "com.example.app_squad_ajudar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782635023823-1n0ji0b34u3c9oca7c19nh3ari5n6qpg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.app_squad_ajudar",
+            "certificate_hash": "73c230d46b656224cb672aa3ee2a107696d81a30"
+          }
+        },
+        {
+          "client_id": "782635023823-pkmheas46d22pgqtfv0op1kleao22nuk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyVcSaOMFEERARJqAiFw7TAWnSlZEQunI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782635023823-pkmheas46d22pgqtfv0op1kleao22nuk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

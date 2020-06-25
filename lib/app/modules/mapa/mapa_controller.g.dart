@@ -9,6 +9,21 @@ part of 'mapa_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$MapaController on _MapaControllerBase, Store {
+  final _$coletaListAtom = Atom(name: '_MapaControllerBase.coletaList');
+
+  @override
+  ObservableStream<List<ColetaModel>> get coletaList {
+    _$coletaListAtom.reportRead();
+    return super.coletaList;
+  }
+
+  @override
+  set coletaList(ObservableStream<List<ColetaModel>> value) {
+    _$coletaListAtom.reportWrite(value, super.coletaList, () {
+      super.coletaList = value;
+    });
+  }
+
   final _$_mapToggleAtom = Atom(name: '_MapaControllerBase._mapToggle');
 
   @override
@@ -163,6 +178,17 @@ mixin _$MapaController on _MapaControllerBase, Store {
       ActionController(name: '_MapaControllerBase');
 
   @override
+  dynamic getList() {
+    final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
+        name: '_MapaControllerBase.getList');
+    try {
+      return super.getList();
+    } finally {
+      _$_MapaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void hideCardDetalhado() {
     final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
         name: '_MapaControllerBase.hideCardDetalhado');
@@ -187,6 +213,7 @@ mixin _$MapaController on _MapaControllerBase, Store {
   @override
   String toString() {
     return '''
+coletaList: ${coletaList},
 mapController: ${mapController},
 position: ${position},
 markers: ${markers},
