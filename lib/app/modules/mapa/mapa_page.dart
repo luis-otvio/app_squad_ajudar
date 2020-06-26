@@ -1,4 +1,3 @@
-import 'package:app_squad_ajudar/app/modules/mapa/models/coleta_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -15,52 +14,19 @@ class MapaPage extends StatefulWidget {
 
 class _MapaPageState extends ModularState<MapaPage, MapaController> {
   @override
-  void initState() {
-    super.initState();
-    this.controller.getPosition();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Observer(builder: (_) {
-        if (controller.coletaList.hasError) {
-          return Center(
-            child: RaisedButton(
-                onPressed: controller.getList, child: Text("Error")),
-          );
-        }
-
-        if (controller.coletaList.data == null) {
-          return Center(child: CircularProgressIndicator());
-        }
-
-        List<ColetaModel> list = controller.coletaList.data;
-
-        return ListView.builder(
-          itemCount: list.length,
-          itemBuilder: (_, index) {
-            ColetaModel model = list[index];
-            return Card(
-              child: Column(
-                children: [
-                  Text(model.tipoColeta.toString()),
-                  Text(model.dia.toString()),
-                  Text("${model.pontoColeta.latitude}, ${model.pontoColeta.longitude}")
-                ],
-              ),
-            );
-          },
-        );
-      }),
-      /*       
-      Stack(
+      body: Stack(
         children: [
-          Observer(
-            builder: (_) => controller.mapToggle
+          Observer(builder: (_) {
+            if (controller.coletaList.data != null) {
+              controller.posicaoMarcacao();
+            }
+
+            return controller.exibeMapa
                 ? this._googleMap()
                 : Center(
                     child: Row(
@@ -70,11 +36,11 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
                         Text('Carregando Mapa... Por favor aguarde!'),
                       ],
                     ),
-                  ),
-          ),
+                  );
+          }),
           Column(mainAxisAlignment: MainAxisAlignment.end, children: [
             Observer(
-              builder: (_) => !this.controller.mapToggle
+              builder: (_) => !this.controller.exibeMapa
                   ? Container()
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -109,7 +75,6 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
           ])
         ],
       ),
-     */
     );
   }
 

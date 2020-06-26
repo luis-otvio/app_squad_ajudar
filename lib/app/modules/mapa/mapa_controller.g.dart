@@ -9,48 +9,33 @@ part of 'mapa_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$MapaController on _MapaControllerBase, Store {
-  final _$coletaListAtom = Atom(name: '_MapaControllerBase.coletaList');
+  final _$exibeMapaAtom = Atom(name: '_MapaControllerBase.exibeMapa');
 
   @override
-  ObservableStream<List<ColetaModel>> get coletaList {
-    _$coletaListAtom.reportRead();
-    return super.coletaList;
+  bool get exibeMapa {
+    _$exibeMapaAtom.reportRead();
+    return super.exibeMapa;
   }
 
   @override
-  set coletaList(ObservableStream<List<ColetaModel>> value) {
-    _$coletaListAtom.reportWrite(value, super.coletaList, () {
-      super.coletaList = value;
+  set exibeMapa(bool value) {
+    _$exibeMapaAtom.reportWrite(value, super.exibeMapa, () {
+      super.exibeMapa = value;
     });
   }
 
-  final _$_mapToggleAtom = Atom(name: '_MapaControllerBase._mapToggle');
+  final _$cardDetalhadoAtom = Atom(name: '_MapaControllerBase.cardDetalhado');
 
   @override
-  bool get _mapToggle {
-    _$_mapToggleAtom.reportRead();
-    return super._mapToggle;
+  bool get cardDetalhado {
+    _$cardDetalhadoAtom.reportRead();
+    return super.cardDetalhado;
   }
 
   @override
-  set _mapToggle(bool value) {
-    _$_mapToggleAtom.reportWrite(value, super._mapToggle, () {
-      super._mapToggle = value;
-    });
-  }
-
-  final _$_cardDetalhadoAtom = Atom(name: '_MapaControllerBase._cardDetalhado');
-
-  @override
-  bool get _cardDetalhado {
-    _$_cardDetalhadoAtom.reportRead();
-    return super._cardDetalhado;
-  }
-
-  @override
-  set _cardDetalhado(bool value) {
-    _$_cardDetalhadoAtom.reportWrite(value, super._cardDetalhado, () {
-      super._cardDetalhado = value;
+  set cardDetalhado(bool value) {
+    _$cardDetalhadoAtom.reportWrite(value, super.cardDetalhado, () {
+      super.cardDetalhado = value;
     });
   }
 
@@ -81,6 +66,21 @@ mixin _$MapaController on _MapaControllerBase, Store {
   set position(Position value) {
     _$positionAtom.reportWrite(value, super.position, () {
       super.position = value;
+    });
+  }
+
+  final _$coletaListAtom = Atom(name: '_MapaControllerBase.coletaList');
+
+  @override
+  ObservableStream<List<ColetaModel>> get coletaList {
+    _$coletaListAtom.reportRead();
+    return super.coletaList;
+  }
+
+  @override
+  set coletaList(ObservableStream<List<ColetaModel>> value) {
+    _$coletaListAtom.reportWrite(value, super.coletaList, () {
+      super.coletaList = value;
     });
   }
 
@@ -174,26 +174,23 @@ mixin _$MapaController on _MapaControllerBase, Store {
     });
   }
 
+  final _$getPositionAsyncAction =
+      AsyncAction('_MapaControllerBase.getPosition');
+
+  @override
+  Future<dynamic> getPosition() {
+    return _$getPositionAsyncAction.run(() => super.getPosition());
+  }
+
   final _$_MapaControllerBaseActionController =
       ActionController(name: '_MapaControllerBase');
 
   @override
-  dynamic getList() {
+  void getList() {
     final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
         name: '_MapaControllerBase.getList');
     try {
       return super.getList();
-    } finally {
-      _$_MapaControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void hideCardDetalhado() {
-    final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
-        name: '_MapaControllerBase.hideCardDetalhado');
-    try {
-      return super.hideCardDetalhado();
     } finally {
       _$_MapaControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -211,11 +208,24 @@ mixin _$MapaController on _MapaControllerBase, Store {
   }
 
   @override
+  void hideCardDetalhado() {
+    final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
+        name: '_MapaControllerBase.hideCardDetalhado');
+    try {
+      return super.hideCardDetalhado();
+    } finally {
+      _$_MapaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-coletaList: ${coletaList},
+exibeMapa: ${exibeMapa},
+cardDetalhado: ${cardDetalhado},
 mapController: ${mapController},
 position: ${position},
+coletaList: ${coletaList},
 markers: ${markers},
 cardIcon: ${cardIcon},
 cardTitle: ${cardTitle},

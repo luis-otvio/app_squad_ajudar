@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:app_squad_ajudar/app/modules/mapa/models/coleta_model.dart';
 import 'package:app_squad_ajudar/app/modules/mapa/repositories/coleta_repository_interface.dart';
 import 'package:flutter/material.dart';
@@ -14,53 +12,36 @@ class MapaController = _MapaControllerBase with _$MapaController;
 
 abstract class _MapaControllerBase with Store {
   final IColetaRepository repository;
+  final Geolocator geolocator = Geolocator();
 
   @observable
-  ObservableStream<List<ColetaModel>> coletaList;
-
-  _MapaControllerBase(this.repository) {
-    getList();
-  }
-
-  @action
-  getList() {
-    coletaList = repository.getColetas().asObservable();
-  }
-
+  bool exibeMapa = false;
   @observable
-  bool _mapToggle = false;
-  bool get mapToggle => _mapToggle;
-  final Geolocator _geolocator = Geolocator();
-
-  @observable
-  bool _cardDetalhado = false;
-  bool get cardDetalhado => _cardDetalhado;
-
-  @action
-  void hideCardDetalhado() {
-    this._cardDetalhado = false;
-  }
+  bool cardDetalhado = false;
 
   @observable
   GoogleMapController mapController;
   @observable
   Position position;
-
+  @observable
+  ObservableStream<List<ColetaModel>> coletaList;
   @observable
   Set<Marker> markers = Set<Marker>();
 
-  void getPosition() async {
-    position = await _geolocator.getLastKnownPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
+  @computed
+  _MapaControllerBase(this.repository) {
+    this.getList();
 
-    if (position == null) {
-      position = await _geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-      );
-    }
-    _mapToggle = true;
-    posicaoMarcacao();
+    this.getPosition().then((value) {
+      if (value) {
+        exibeMapa = true;
+      }
+    });
+  }
+
+  @action
+  void getList() {
+    coletaList = repository.getColetas().asObservable();
   }
 
   void onMapCreated(GoogleMapController controller) {
@@ -73,43 +54,41 @@ abstract class _MapaControllerBase with Store {
   }
 
   @action
+  Future getPosition() async {
+    position = await geolocator.getLastKnownPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+
+    if (position == null) {
+      position = await geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+    }
+
+    return true;
+  }
+
+  @action
   void posicaoMarcacao() {
-    final List<Map<String, dynamic>> listMarkers = [
-      {
-        'id': Random().nextInt(1000).toString(),
-        'pontoColeta': [-20.09886050067417, -45.28216905891895],
-        'dia': {
-          'seg': [
-            {'horaInicio': '12:00', 'horaFim': '12:30'}
-          ],
-          'qua': [
-            {'horaInicio': '12:30', 'horaFim': '13:00'}
-          ],
-          'sex': [
-            {'horaInicio': '16:30', 'horaFim': '17:00'}
-          ],
-        },
-        'tipoColeta': [
-          {'organico': 'Orgânico'},
-          {'inorganico': 'Inorgânico'},
-          {'eletronico': 'Eletrônico'},
-        ],
-        'descricao':
-            'A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica para preencher os espaços de texto em publicações para testar e ajustar aspectos visuais antes de utilizar conteúdo real.',
-      }
-    ];
+    List<ColetaModel> listMarkers = coletaList.data;
 
     listMarkers.forEach((item) {
       Marker marker = Marker(
-          markerId: MarkerId(item['id']),
-          position: LatLng(item['pontoColeta'][0], item['pontoColeta'][1]),
+          markerId: MarkerId(item.reference.toString()),
+          position:
+              LatLng(item.pontoColeta.latitude, item.pontoColeta.longitude),
           onTap: () => _montaCard(item));
 
       this.markers.add(marker);
     });
   }
 
-  //
+  @action
+  void hideCardDetalhado() {
+    this.cardDetalhado = false;
+  }
+
+  // separar
   @observable
   Icon cardIcon;
   @observable
@@ -121,11 +100,11 @@ abstract class _MapaControllerBase with Store {
   @observable
   String cardHoraSemana;
 
-  void _montaCard(Map<String, dynamic> item) {
-    _cardDetalhado = true;
+  void _montaCard(ColetaModel item) {
+    cardDetalhado = true;
     cardIcon = Icon(Icons.close);
-    cardTitle = item['tipoColeta'][0]['organico'];
-    cardContent = item['descricao'];
-    cardDiaSemana = item['dia'].keys.toString();
+    cardTitle = item.tipoColeta.toString();
+    cardContent = "item.tipoColeta";
+    cardDiaSemana = item.dia.keys.toString();
   }
 }
