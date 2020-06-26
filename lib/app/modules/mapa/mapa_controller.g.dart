@@ -72,13 +72,13 @@ mixin _$MapaController on _MapaControllerBase, Store {
   final _$coletaListAtom = Atom(name: '_MapaControllerBase.coletaList');
 
   @override
-  ObservableStream<List<ColetaModel>> get coletaList {
+  ObservableStream<List<Coleta>> get coletaList {
     _$coletaListAtom.reportRead();
     return super.coletaList;
   }
 
   @override
-  set coletaList(ObservableStream<List<ColetaModel>> value) {
+  set coletaList(ObservableStream<List<Coleta>> value) {
     _$coletaListAtom.reportWrite(value, super.coletaList, () {
       super.coletaList = value;
     });
@@ -99,78 +99,18 @@ mixin _$MapaController on _MapaControllerBase, Store {
     });
   }
 
-  final _$cardIconAtom = Atom(name: '_MapaControllerBase.cardIcon');
+  final _$coletaAtom = Atom(name: '_MapaControllerBase.coleta');
 
   @override
-  Icon get cardIcon {
-    _$cardIconAtom.reportRead();
-    return super.cardIcon;
+  Coleta get coleta {
+    _$coletaAtom.reportRead();
+    return super.coleta;
   }
 
   @override
-  set cardIcon(Icon value) {
-    _$cardIconAtom.reportWrite(value, super.cardIcon, () {
-      super.cardIcon = value;
-    });
-  }
-
-  final _$cardTitleAtom = Atom(name: '_MapaControllerBase.cardTitle');
-
-  @override
-  String get cardTitle {
-    _$cardTitleAtom.reportRead();
-    return super.cardTitle;
-  }
-
-  @override
-  set cardTitle(String value) {
-    _$cardTitleAtom.reportWrite(value, super.cardTitle, () {
-      super.cardTitle = value;
-    });
-  }
-
-  final _$cardContentAtom = Atom(name: '_MapaControllerBase.cardContent');
-
-  @override
-  String get cardContent {
-    _$cardContentAtom.reportRead();
-    return super.cardContent;
-  }
-
-  @override
-  set cardContent(String value) {
-    _$cardContentAtom.reportWrite(value, super.cardContent, () {
-      super.cardContent = value;
-    });
-  }
-
-  final _$cardDiaSemanaAtom = Atom(name: '_MapaControllerBase.cardDiaSemana');
-
-  @override
-  String get cardDiaSemana {
-    _$cardDiaSemanaAtom.reportRead();
-    return super.cardDiaSemana;
-  }
-
-  @override
-  set cardDiaSemana(String value) {
-    _$cardDiaSemanaAtom.reportWrite(value, super.cardDiaSemana, () {
-      super.cardDiaSemana = value;
-    });
-  }
-
-  final _$cardHoraSemanaAtom = Atom(name: '_MapaControllerBase.cardHoraSemana');
-
-  @override
-  String get cardHoraSemana {
-    _$cardHoraSemanaAtom.reportRead();
-    return super.cardHoraSemana;
-  }
-
-  @override
-  set cardHoraSemana(String value) {
-    _$cardHoraSemanaAtom.reportWrite(value, super.cardHoraSemana, () {
-      super.cardHoraSemana = value;
+  set coleta(Coleta value) {
+    _$coletaAtom.reportWrite(value, super.coleta, () {
+      super.coleta = value;
     });
   }
 
@@ -197,11 +137,11 @@ mixin _$MapaController on _MapaControllerBase, Store {
   }
 
   @override
-  void posicaoMarcacao() {
+  void _montaCardDetalhado(Coleta item) {
     final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
-        name: '_MapaControllerBase.posicaoMarcacao');
+        name: '_MapaControllerBase._montaCardDetalhado');
     try {
-      return super.posicaoMarcacao();
+      return super._montaCardDetalhado(item);
     } finally {
       _$_MapaControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -227,11 +167,7 @@ mapController: ${mapController},
 position: ${position},
 coletaList: ${coletaList},
 markers: ${markers},
-cardIcon: ${cardIcon},
-cardTitle: ${cardTitle},
-cardContent: ${cardContent},
-cardDiaSemana: ${cardDiaSemana},
-cardHoraSemana: ${cardHoraSemana}
+coleta: ${coleta}
     ''';
   }
 }

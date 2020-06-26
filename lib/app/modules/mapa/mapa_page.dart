@@ -102,9 +102,9 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
         children: [
           ListTile(
             leading: Icon(Icons.map),
-            title: Text(this.controller.cardTitle),
+            title: Text(this.controller.coleta.tipoColeta.toString()),
             trailing: IconButton(
-                icon: this.controller.cardIcon,
+                icon: Icon(Icons.close),
                 onPressed: this.controller.hideCardDetalhado),
           ),
           Padding(
@@ -115,14 +115,14 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: Text(
-                    this.controller.cardContent,
+                    "this.controller.cardContent",
                     textAlign: TextAlign.justify,
                   ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(this.controller.cardDiaSemana),
+                    Text(this.controller.coleta.dia.toString()),
                     Text("14:20"),
                   ],
                 )

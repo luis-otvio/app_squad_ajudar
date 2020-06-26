@@ -1,7 +1,5 @@
-import 'package:app_squad_ajudar/app/modules/mapa/models/coleta_model.dart';
+import 'package:app_squad_ajudar/app/models/coleta.dart';
 import 'package:app_squad_ajudar/app/modules/mapa/repositories/coleta_repository_interface.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
@@ -24,9 +22,11 @@ abstract class _MapaControllerBase with Store {
   @observable
   Position position;
   @observable
-  ObservableStream<List<ColetaModel>> coletaList;
+  ObservableStream<List<Coleta>> coletaList;
   @observable
   Set<Marker> markers = Set<Marker>();
+  @observable
+  Coleta coleta;
 
   @computed
   _MapaControllerBase(this.repository) {
@@ -68,43 +68,26 @@ abstract class _MapaControllerBase with Store {
     return true;
   }
 
-  @action
   void posicaoMarcacao() {
-    List<ColetaModel> listMarkers = coletaList.data;
-
-    listMarkers.forEach((item) {
+    coletaList.data.forEach((item) {
       Marker marker = Marker(
           markerId: MarkerId(item.reference.toString()),
           position:
               LatLng(item.pontoColeta.latitude, item.pontoColeta.longitude),
-          onTap: () => _montaCard(item));
+          onTap: () => _montaCardDetalhado(item));
 
       this.markers.add(marker);
     });
   }
 
   @action
-  void hideCardDetalhado() {
-    this.cardDetalhado = false;
+  void _montaCardDetalhado(Coleta item) {
+    cardDetalhado = true;
+    this.coleta = item;
   }
 
-  // separar
-  @observable
-  Icon cardIcon;
-  @observable
-  String cardTitle;
-  @observable
-  String cardContent;
-  @observable
-  String cardDiaSemana;
-  @observable
-  String cardHoraSemana;
-
-  void _montaCard(ColetaModel item) {
-    cardDetalhado = true;
-    cardIcon = Icon(Icons.close);
-    cardTitle = item.tipoColeta.toString();
-    cardContent = "item.tipoColeta";
-    cardDiaSemana = item.dia.keys.toString();
+  @action
+  void hideCardDetalhado() {
+    this.cardDetalhado = false;
   }
 }

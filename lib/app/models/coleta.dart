@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ColetaModel {
+class Coleta {
   DocumentReference reference;
   Map dia;
   GeoPoint pontoColeta;
   List tipoColeta;
 
-  ColetaModel({this.reference, this.dia, this.pontoColeta, this.tipoColeta});
+  Coleta({this.reference, this.dia, this.pontoColeta, this.tipoColeta});
 
-  factory ColetaModel.fromDocument(DocumentSnapshot doc) {
-    return ColetaModel(
+  factory Coleta.fromDocument(DocumentSnapshot doc) {
+    return Coleta(
       reference: doc.reference,
       dia: doc['dia'],
       pontoColeta: doc['pontoColeta'],
@@ -20,7 +20,7 @@ class ColetaModel {
   Future save() async {
     if (reference == null) {
       // add
-      reference = await Firestore.instance.collection('Coleta').add({
+      reference = await Firestore.instance.collection(this.runtimeType.toString()).add({
         'dia': dia,
         'pontoColeta': pontoColeta,
         'tipoColeta': tipoColeta,
