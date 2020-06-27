@@ -27,6 +27,9 @@ dependencies:
   flutter_modular: ^1.2.5+1
   flutter:
     sdk: flutter
+  
+  # Utilities
+  auto_size_text: ^2.1.0
 
   # Maps
   google_maps_flutter: ^0.5.28+1

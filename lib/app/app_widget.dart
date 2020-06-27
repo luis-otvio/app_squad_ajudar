@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -58,12 +59,14 @@ generateAppBar(String titulo, Widget action) {
   }
 }
 
-Widget generateHomeButton(String texto, String iconeUrl, String rota) {
+Widget generateHomeButton(
+    BuildContext context, String texto, String iconeUrl, String rota) {
   return InkWell(
     onTap: () => Modular.link.pushNamed(rota),
     child: Container(
+      width: MediaQuery.of(context).size.width / 0.5,
       margin: EdgeInsets.symmetric(vertical: 15),
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -93,12 +96,17 @@ Widget generateHomeButton(String texto, String iconeUrl, String rota) {
               ),
             ],
           ),
-          Text(
-            texto,
-            style: TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF002904),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 2.4,
+            child: AutoSizeText(
+              texto,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF002904),
+              ),
+              maxFontSize: 20,
+              minFontSize: 17,
+              maxLines: 3,
             ),
           ),
         ],

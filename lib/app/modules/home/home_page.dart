@@ -21,7 +21,11 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       appBar: generateAppBar(widget.title, null),
       drawer: Drawer(),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 65, vertical: 30),
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width / 8,
+          vertical: 30,
+        ),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -35,16 +39,19 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         child: Column(
           children: <Widget>[
             generateHomeButton(
+              context,
               "Pontos de coleta",
               "assets/img/icon_maps.png",
               "/mapa",
             ),
             generateHomeButton(
+              context,
               "Como separar",
               "assets/img/icon_drop_trash.png",
               "",
             ),
             generateHomeButton(
+              context,
               "Dicas Locais",
               "assets/img/icon_marker.png",
               "",
