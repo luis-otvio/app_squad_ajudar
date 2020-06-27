@@ -18,7 +18,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: generateAppBar("Nome do aplicativo", null),
+      appBar: generateAppBar(widget.title, null),
       drawer: Drawer(),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 65, vertical: 30),
@@ -34,10 +34,21 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         ),
         child: Column(
           children: <Widget>[
-            generateHomeButton("Pontos de coleta", "assets/img/icon_maps.png"),
             generateHomeButton(
-                "Como separar", "assets/img/icon_drop_trash.png"),
-            generateHomeButton("Dicas Locais", "assets/img/icon_marker.png"),
+              "Pontos de coleta",
+              "assets/img/icon_maps.png",
+              "/mapa",
+            ),
+            generateHomeButton(
+              "Como separar",
+              "assets/img/icon_drop_trash.png",
+              "",
+            ),
+            generateHomeButton(
+              "Dicas Locais",
+              "assets/img/icon_marker.png",
+              "",
+            ),
           ],
         ),
       ),

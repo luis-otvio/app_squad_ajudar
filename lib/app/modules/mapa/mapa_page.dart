@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../../app_widget.dart';
 import 'mapa_controller.dart';
 
 class MapaPage extends StatefulWidget {
@@ -16,9 +17,12 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: generateAppBar(
+          widget.title,
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: Icon(Icons.filter_list),
+          )),
       body: Stack(
         children: [
           Observer(builder: (_) {

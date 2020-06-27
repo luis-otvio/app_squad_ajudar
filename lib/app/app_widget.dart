@@ -37,8 +37,12 @@ generateAppBar(String titulo, Widget action) {
   if (action != null) {
     return AppBar(
       backgroundColor: Colors.white,
-      title: Text(titulo),
+      title: Text(
+        titulo,
+        style: TextStyle(color: Colors.black),
+      ),
       centerTitle: true,
+      iconTheme: new IconThemeData(color: Colors.black),
       actions: [action],
     );
   } else {
@@ -54,9 +58,9 @@ generateAppBar(String titulo, Widget action) {
   }
 }
 
-Widget generateHomeButton(String texto, String iconeUrl) {
+Widget generateHomeButton(String texto, String iconeUrl, String rota) {
   return InkWell(
-    onTap: () {},
+    onTap: () => Modular.link.pushNamed(rota),
     child: Container(
       margin: EdgeInsets.symmetric(vertical: 15),
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -85,14 +89,14 @@ Widget generateHomeButton(String texto, String iconeUrl) {
                 margin: EdgeInsets.symmetric(horizontal: 15),
                 height: 47,
                 width: 2,
-                color: Colors.grey,
+                color: Colors.grey[300],
               ),
             ],
           ),
           Text(
             texto,
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 17,
               fontWeight: FontWeight.bold,
               color: Color(0xFF002904),
             ),
