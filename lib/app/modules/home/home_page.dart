@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import '../../app_widget.dart';
+import '../../app_widget.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,19 +18,28 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: <Widget>[
-          Card(
-            child: ListTile(
-              leading: Icon(Icons.map),
-              title: Text("Ponto de Coleta"),
-              onTap: () => Modular.link.pushNamed('/mapa'),
-            ),
-          )
-        ],
+      appBar: generateAppBar("Nome do aplicativo", null),
+      drawer: Drawer(),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 65, vertical: 30),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF17B17B),
+              Color(0xFF51C4B8),
+            ],
+          ),
+        ),
+        child: Column(
+          children: <Widget>[
+            generateHomeButton("Pontos de coleta", "assets/img/icon_maps.png"),
+            generateHomeButton(
+                "Como separar", "assets/img/icon_drop_trash.png"),
+            generateHomeButton("Dicas Locais", "assets/img/icon_marker.png"),
+          ],
+        ),
       ),
     );
   }
