@@ -33,7 +33,7 @@ class AppWidget extends StatelessWidget {
 }
 
 generateAppBar(String titulo, Widget action) {
-  // se houver botão a esquerda apenas
+  // se houver botões a direita
   if (action != null) {
     return AppBar(
       backgroundColor: Colors.white,
