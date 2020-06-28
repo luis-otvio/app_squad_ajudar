@@ -28,7 +28,7 @@ class PontoColeta {
   Future save() async {
     if (reference == null) {
       // add
-      reference = await Firestore.instance.collection(this.toString()).add({
+      await Firestore.instance.collection(this.toString()).add({
         'nome': nome,
         'descricao': descricao,
         'geoPoint': geoPoint ?? GeoPoint(-19.740653, -45.254100),
@@ -40,14 +40,7 @@ class PontoColeta {
         'nome': nome,
         'descricao': descricao,
         'geoPoint': geoPoint ?? GeoPoint(-19.740653, -45.254100),
-        'diaSemana': {
-          'seg': [
-            {
-              'horaInicio': '07:00:00',
-              'tipoColeta': ['organico']
-            }
-          ]
-        },
+        'diaSemana': diaSemana,
       });
     }
   }

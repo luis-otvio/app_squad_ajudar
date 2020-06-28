@@ -10,9 +10,9 @@ class PontoColetaController = _PontoColetaControllerBase
     with _$PontoColetaController;
 
 abstract class _PontoColetaControllerBase with Store {
-  final Firestore firestore;
+  final Firestore firestore = Firestore.instance;
 
-  _PontoColetaControllerBase(this.firestore) {
+  _PontoColetaControllerBase() {
     getList();
   }
 

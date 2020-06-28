@@ -5,7 +5,7 @@ import 'package:app_squad_ajudar/app/modules/mapa/mapa_page.dart';
 class MapaModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => MapaController(i.get())),
+        Bind((i) => MapaController()),
       ];
 
   @override

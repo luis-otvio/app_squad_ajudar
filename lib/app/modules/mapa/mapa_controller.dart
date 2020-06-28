@@ -9,7 +9,7 @@ part 'mapa_controller.g.dart';
 class MapaController = _MapaControllerBase with _$MapaController;
 
 abstract class _MapaControllerBase with Store {
-  final Firestore firestore;
+  final Firestore firestore = Firestore.instance;
   final Geolocator geolocator = Geolocator();
 
   @observable
@@ -29,7 +29,7 @@ abstract class _MapaControllerBase with Store {
   PontoColeta pontoColeta;
 
   @computed
-  _MapaControllerBase(this.firestore) {
+  _MapaControllerBase() {
     this.getList();
 
     this.getPosition().then((value) {

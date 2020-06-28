@@ -20,19 +20,23 @@ class TipoColeta {
   Future save() async {
     if (reference == null) {
       // add
-      reference =
-          await Firestore.instance.collection(super.toString()).add({
+      await Firestore.instance.collection(this.toString()).add({
         'observacao': observacao,
         'tipo': tipo,
         'prefixo': prefixo,
       });
     } else {
       // update
-      reference.updateData({
+      await reference.updateData({
         'observacao': observacao,
         'tipo': tipo,
         'prefixo': prefixo,
       });
     }
+  }
+
+  @override
+  String toString() {
+    return this.runtimeType.toString();
   }
 }

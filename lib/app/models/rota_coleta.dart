@@ -23,17 +23,21 @@ class RotaColeta {
   Future save() async {
     if (reference == null) {
       // add
-      reference =
-          await Firestore.instance.collection(super.toString()).add({
+      await Firestore.instance.collection(this.toString()).add({
         'descricao': descricao,
         'pontoColeta': pontoColeta,
       });
     } else {
       // update
-      reference.updateData({
+      await reference.updateData({
         'descricao': descricao,
         'pontoColeta': pontoColeta,
       });
     }
+  }
+
+  @override
+  String toString() {
+    return this.runtimeType.toString();
   }
 }
