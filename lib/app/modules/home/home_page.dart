@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../../app_widget.dart';
-import '../../app_widget.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {

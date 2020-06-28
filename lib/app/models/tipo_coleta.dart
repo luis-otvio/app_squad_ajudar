@@ -21,7 +21,7 @@ class TipoColeta {
     if (reference == null) {
       // add
       reference =
-          await Firestore.instance.collection(this.runtimeType.toString()).add({
+          await Firestore.instance.collection(super.toString()).add({
         'observacao': observacao,
         'tipo': tipo,
         'prefixo': prefixo,

@@ -17,7 +17,7 @@ Map<int, Color> color = {
 };
 
 class AppWidget extends StatelessWidget {
-  MaterialColor greenCustom = MaterialColor(0xFF880E4F, color);
+  final MaterialColor greenCustom = MaterialColor(0xFF880E4F, color);
 
   @override
   Widget build(BuildContext context) {

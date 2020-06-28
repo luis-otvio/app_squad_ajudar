@@ -69,48 +69,49 @@ mixin _$MapaController on _MapaControllerBase, Store {
     });
   }
 
-  final _$coletaListAtom = Atom(name: '_MapaControllerBase.coletaList');
+  final _$pontoColetaListAtom =
+      Atom(name: '_MapaControllerBase.pontoColetaList');
 
   @override
-  ObservableStream<List<Coleta>> get coletaList {
-    _$coletaListAtom.reportRead();
-    return super.coletaList;
+  ObservableStream<List<PontoColeta>> get pontoColetaList {
+    _$pontoColetaListAtom.reportRead();
+    return super.pontoColetaList;
   }
 
   @override
-  set coletaList(ObservableStream<List<Coleta>> value) {
-    _$coletaListAtom.reportWrite(value, super.coletaList, () {
-      super.coletaList = value;
+  set pontoColetaList(ObservableStream<List<PontoColeta>> value) {
+    _$pontoColetaListAtom.reportWrite(value, super.pontoColetaList, () {
+      super.pontoColetaList = value;
     });
   }
 
   final _$markersAtom = Atom(name: '_MapaControllerBase.markers');
 
   @override
-  Set<Marker> get markers {
+  ObservableSet<Marker> get markers {
     _$markersAtom.reportRead();
     return super.markers;
   }
 
   @override
-  set markers(Set<Marker> value) {
+  set markers(ObservableSet<Marker> value) {
     _$markersAtom.reportWrite(value, super.markers, () {
       super.markers = value;
     });
   }
 
-  final _$coletaAtom = Atom(name: '_MapaControllerBase.coleta');
+  final _$pontoColetaAtom = Atom(name: '_MapaControllerBase.pontoColeta');
 
   @override
-  Coleta get coleta {
-    _$coletaAtom.reportRead();
-    return super.coleta;
+  PontoColeta get pontoColeta {
+    _$pontoColetaAtom.reportRead();
+    return super.pontoColeta;
   }
 
   @override
-  set coleta(Coleta value) {
-    _$coletaAtom.reportWrite(value, super.coleta, () {
-      super.coleta = value;
+  set pontoColeta(PontoColeta value) {
+    _$pontoColetaAtom.reportWrite(value, super.pontoColeta, () {
+      super.pontoColeta = value;
     });
   }
 
@@ -137,7 +138,18 @@ mixin _$MapaController on _MapaControllerBase, Store {
   }
 
   @override
-  void _montaCardDetalhado(Coleta item) {
+  void posicaoMarcacao() {
+    final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
+        name: '_MapaControllerBase.posicaoMarcacao');
+    try {
+      return super.posicaoMarcacao();
+    } finally {
+      _$_MapaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void _montaCardDetalhado(PontoColeta item) {
     final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
         name: '_MapaControllerBase._montaCardDetalhado');
     try {
@@ -165,9 +177,9 @@ exibeMapa: ${exibeMapa},
 cardDetalhado: ${cardDetalhado},
 mapController: ${mapController},
 position: ${position},
-coletaList: ${coletaList},
+pontoColetaList: ${pontoColetaList},
 markers: ${markers},
-coleta: ${coleta}
+pontoColeta: ${pontoColeta}
     ''';
   }
 }

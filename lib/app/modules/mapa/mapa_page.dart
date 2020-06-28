@@ -26,7 +26,7 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
       body: Stack(
         children: [
           Observer(builder: (_) {
-            if (controller.coletaList.data != null) {
+            if (controller.pontoColetaList.data != null) {
               controller.posicaoMarcacao();
             }
 
@@ -106,7 +106,8 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
         children: [
           ListTile(
             leading: Icon(Icons.map),
-            title: Text(this.controller.coleta.tipoColeta.toString()),
+            title: Observer(
+                builder: (_) => Text(this.controller.pontoColeta.nome)),
             trailing: IconButton(
                 icon: Icon(Icons.close),
                 onPressed: this.controller.hideCardDetalhado),
@@ -126,7 +127,7 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(this.controller.coleta.dia.toString()),
+                    Text(this.controller.pontoColeta.diaSemana.toString()),
                     Text("14:20"),
                   ],
                 )

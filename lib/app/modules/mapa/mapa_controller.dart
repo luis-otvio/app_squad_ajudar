@@ -1,5 +1,5 @@
-import 'package:app_squad_ajudar/app/models/coleta.dart';
-import 'package:app_squad_ajudar/app/modules/mapa/repositories/coleta_repository_interface.dart';
+import 'package:app_squad_ajudar/app/models/ponto_coleta.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
@@ -9,7 +9,7 @@ part 'mapa_controller.g.dart';
 class MapaController = _MapaControllerBase with _$MapaController;
 
 abstract class _MapaControllerBase with Store {
-  final IColetaRepository repository;
+  final Firestore firestore;
   final Geolocator geolocator = Geolocator();
 
   @observable
@@ -22,14 +22,14 @@ abstract class _MapaControllerBase with Store {
   @observable
   Position position;
   @observable
-  ObservableStream<List<Coleta>> coletaList;
+  ObservableStream<List<PontoColeta>> pontoColetaList;
   @observable
-  Set<Marker> markers = Set<Marker>();
+  ObservableSet<Marker> markers = Set<Marker>().asObservable();
   @observable
-  Coleta coleta;
+  PontoColeta pontoColeta;
 
   @computed
-  _MapaControllerBase(this.repository) {
+  _MapaControllerBase(this.firestore) {
     this.getList();
 
     this.getPosition().then((value) {
@@ -41,7 +41,12 @@ abstract class _MapaControllerBase with Store {
 
   @action
   void getList() {
-    coletaList = repository.getColetas().asObservable();
+    pontoColetaList =
+        firestore.collection(PontoColeta().toString()).snapshots().map((query) {
+      return query.documents.map((doc) {
+        return PontoColeta.fromDocument(doc);
+      }).toList();
+    }).asObservable();
   }
 
   void onMapCreated(GoogleMapController controller) {
@@ -68,12 +73,12 @@ abstract class _MapaControllerBase with Store {
     return true;
   }
 
+  @action
   void posicaoMarcacao() {
-    coletaList.data.forEach((item) {
+    pontoColetaList.data.forEach((item) {
       Marker marker = Marker(
           markerId: MarkerId(item.reference.toString()),
-          position:
-              LatLng(item.pontoColeta.latitude, item.pontoColeta.longitude),
+          position: LatLng(item.geoPoint.latitude, item.geoPoint.longitude),
           onTap: () => _montaCardDetalhado(item));
 
       this.markers.add(marker);
@@ -81,13 +86,14 @@ abstract class _MapaControllerBase with Store {
   }
 
   @action
-  void _montaCardDetalhado(Coleta item) {
+  void _montaCardDetalhado(PontoColeta item) {
     cardDetalhado = true;
-    this.coleta = item;
+    this.pontoColeta = item;
   }
 
   @action
   void hideCardDetalhado() {
     this.cardDetalhado = false;
+    this.pontoColeta = null;
   }
 }
