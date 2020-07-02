@@ -71,7 +71,7 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
                   : Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Container(
-                        width: 360,
+                        width: MediaQuery.of(context).size.width,
                         child: _card(),
                       ),
                     ),
@@ -105,35 +105,36 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
       child: Column(
         children: [
           ListTile(
-            leading: Icon(Icons.map),
             title: Observer(
-                builder: (_) => Text(this.controller.pontoColeta.nome)),
+              builder: (_) => Text(this.controller.pontoColeta.nome),
+            ),
             trailing: IconButton(
-                icon: Icon(Icons.close),
-                onPressed: this.controller.hideCardDetalhado),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-                top: 0, bottom: 16.0, left: 16, right: 16),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 16.0),
-                  child: Text(
-                    "this.controller.cardContent",
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(this.controller.pontoColeta.diaSemana.toString()),
-                    Text("14:20"),
-                  ],
-                )
-              ],
+              icon: Icon(Icons.close),
+              onPressed: this.controller.hideCardDetalhado,
             ),
           ),
+          Column(
+            children: [
+              Observer(builder: (_) {
+                var diaSemana = this.controller.pontoColeta.diaSemana;
+                return ListView.builder(
+                  itemCount: diaSemana.length,
+                  itemBuilder: (_, index) {
+                    // print(diaSemana[index].key);
+                    return ListTile(
+                      title: Text("diaSemana[index].key"),
+                      subtitle: Row(
+                        children: [
+                          Text('Horario Inicio: 07:00'),
+                          Text('Tipo Coleta: Organico')
+                        ],
+                      ),
+                    );
+                  },
+                );
+              }),
+            ],
+          )
         ],
       ),
     );

@@ -77,18 +77,21 @@ abstract class _MapaControllerBase with Store {
   void posicaoMarcacao() {
     pontoColetaList.data.forEach((item) {
       Marker marker = Marker(
-          markerId: MarkerId(item.reference.toString()),
-          position: LatLng(item.geoPoint.latitude, item.geoPoint.longitude),
-          onTap: () => _montaCardDetalhado(item));
+        // icon: this.iconsMap,
+        markerId: MarkerId(item.reference.toString()),
+        position: LatLng(item.geoPoint.latitude, item.geoPoint.longitude),
+        onTap: () => _montaCardDetalhado(item),
+      );
 
       this.markers.add(marker);
     });
   }
 
   @action
-  void _montaCardDetalhado(PontoColeta item) {
+  void _montaCardDetalhado(PontoColeta model) {
+    print(model.nome);
     cardDetalhado = true;
-    this.pontoColeta = item;
+    this.pontoColeta = model;
   }
 
   @action
