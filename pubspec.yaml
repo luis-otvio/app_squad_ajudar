@@ -30,6 +30,7 @@ dependencies:
   
   # Utilities
   auto_size_text: ^2.1.0
+  intro_slider: ^2.3.1
 
   # Maps
   google_maps_flutter: ^0.5.28+1
@@ -68,6 +69,10 @@ flutter:
     - assets/img/icon_drop_trash.png
     - assets/img/icon_maps.png
     - assets/img/icon_marker.png
+
+    - assets/img/lixo_seco.png
+    - assets/img/lixo_organico.png
+    - assets/img/lixo_nao_reciclavel.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
