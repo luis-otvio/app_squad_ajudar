@@ -1,5 +1,6 @@
 import 'package:app_squad_ajudar/app/models/ponto_coleta.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
@@ -9,6 +10,7 @@ part 'mapa_controller.g.dart';
 class MapaController = _MapaControllerBase with _$MapaController;
 
 abstract class _MapaControllerBase with Store {
+  BitmapDescriptor garbageTruckIcon;
   final Firestore firestore = Firestore.instance;
   final Geolocator geolocator = Geolocator();
 
@@ -30,6 +32,11 @@ abstract class _MapaControllerBase with Store {
 
   @computed
   _MapaControllerBase() {
+    BitmapDescriptor.fromAssetImage(
+      ImageConfiguration(size: Size(64, 64)),
+      "assets/marker_icons/garbageTruck.png",
+    ).then((value) => this.garbageTruckIcon = value);
+
     this.getList();
 
     this.getPosition().then((value) {
@@ -77,7 +84,7 @@ abstract class _MapaControllerBase with Store {
   void posicaoMarcacao() {
     pontoColetaList.data.forEach((item) {
       Marker marker = Marker(
-        // icon: this.iconsMap,
+        icon: this.garbageTruckIcon,
         markerId: MarkerId(item.reference.toString()),
         position: LatLng(item.geoPoint.latitude, item.geoPoint.longitude),
         onTap: () => _montaCardDetalhado(item),

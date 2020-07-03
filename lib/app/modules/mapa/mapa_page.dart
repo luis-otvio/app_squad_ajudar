@@ -45,7 +45,9 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
           Column(mainAxisAlignment: MainAxisAlignment.end, children: [
             Observer(
               builder: (_) => !this.controller.exibeMapa
-                  ? Container()
+                  ? Container(
+                      child: Text("data"),
+                    )
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -114,27 +116,25 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
             ),
           ),
           Column(
-            children: [
-              Observer(builder: (_) {
-                var diaSemana = this.controller.pontoColeta.diaSemana;
-                return ListView.builder(
-                  itemCount: diaSemana.length,
-                  itemBuilder: (_, index) {
-                    // print(diaSemana[index].key);
-                    return ListTile(
-                      title: Text("diaSemana[index].key"),
-                      subtitle: Row(
-                        children: [
-                          Text('Horario Inicio: 07:00'),
-                          Text('Tipo Coleta: Organico')
-                        ],
-                      ),
-                    );
-                  },
-                );
-              }),
-            ],
-          )
+              children: this.controller.pontoColeta.diasSemana.map((diaSemana) {
+            return ListTile(
+              leading: Image(
+                image:
+                    AssetImage("assets/marker_icons/${diaSemana['icon'] ?? 'garbageTruck'}.png"),
+                height: 24,
+                fit: BoxFit.cover,
+              ),
+              title: Text(diaSemana['diaSemana'] ?? "Dia Semana"),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Horario Inicio: ${diaSemana['horaInicio']}"),
+                  Text("Tipo Coleta: ${diaSemana['tipoColeta']}"),
+                  Divider()
+                ],
+              ),
+            );
+          }).toList())
         ],
       ),
     );
