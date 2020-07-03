@@ -48,16 +48,50 @@ abstract class _MapaControllerBase with Store {
 
   @action
   void getList() {
-    pontoColetaList =
-        firestore.collection(PontoColeta().toString()).snapshots().map((query) {
+    pontoColetaList = firestore
+        .collection(PontoColeta().toString())
+        .where("ativo", isEqualTo: true)
+        .snapshots()
+        .map((query) {
       return query.documents.map((doc) {
         return PontoColeta.fromDocument(doc);
       }).toList();
     }).asObservable();
   }
 
-  void onMapCreated(GoogleMapController controller) {
+  Future onMapCreated(GoogleMapController controller) async {
     this.mapController = controller;
+    // https://mapstyle.withgoogle.com/
+    await this.mapController.setMapStyle(
+          [
+            {
+              "featureType": "administrative",
+              "elementType": "geometry",
+              "stylers": [
+                {"visibility": "off"}
+              ]
+            },
+            {
+              "featureType": "poi",
+              "stylers": [
+                {"visibility": "off"}
+              ]
+            },
+            {
+              "featureType": "road",
+              "elementType": "labels.icon",
+              "stylers": [
+                {"visibility": "off"}
+              ]
+            },
+            {
+              "featureType": "transit",
+              "stylers": [
+                {"visibility": "off"}
+              ]
+            }
+          ].toString(),
+        );
   }
 
   void posicaoAtual() {
@@ -82,7 +116,7 @@ abstract class _MapaControllerBase with Store {
 
   @action
   void posicaoMarcacao() {
-    pontoColetaList.data.forEach((item) {
+    pontoColetaList.data.forEach((PontoColeta item) {
       Marker marker = Marker(
         icon: this.garbageTruckIcon,
         markerId: MarkerId(item.reference.toString()),
