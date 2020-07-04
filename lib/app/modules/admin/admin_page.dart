@@ -71,7 +71,7 @@ class _AdminPageState extends ModularState<AdminPage, AdminController> {
                   ),
                   SizedBox(height: 15),
                   TextFormField(
-                    obscureText: true,
+                    obscureText: true,  
                     decoration: InputDecoration(
                       hintText: "Senha",
                     ),

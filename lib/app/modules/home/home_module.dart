@@ -7,6 +7,8 @@ import 'package:app_squad_ajudar/app/modules/dica_local/dica_local_page.dart';
 import 'package:app_squad_ajudar/app/modules/home/home_controller.dart';
 import 'package:app_squad_ajudar/app/modules/mapa/mapa_controller.dart';
 import 'package:app_squad_ajudar/app/modules/mapa/mapa_page.dart';
+import 'package:app_squad_ajudar/app/modules/sugestoes/sugestoes_controller.dart';
+import 'package:app_squad_ajudar/app/modules/sugestoes/sugestoes_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:app_squad_ajudar/app/modules/home/home_page.dart';
 
@@ -18,6 +20,7 @@ class HomeModule extends ChildModule {
         Bind((i) => MapaController()),
         Bind((i) => ComoSepararController()),
         Bind((i) => DicaLocalController()),
+        Bind((i) => SugestoesController()),
       ];
 
   @override
@@ -27,7 +30,7 @@ class HomeModule extends ChildModule {
         Router('/mapa', child: (_, args) => MapaPage()),
         Router('/como_separar', child: (_, args) => ComoSepararPage()),
         Router('/dica_local', child: (_, args) => DicaLocalPage()),
-        // Router('/sugestoes', child: (_, args) => SugestoesPage()),
+        Router('/sugestoes', child: (_, args) => SugestoesPage()),
       ];
 
   static Inject get to => Inject<HomeModule>.of();

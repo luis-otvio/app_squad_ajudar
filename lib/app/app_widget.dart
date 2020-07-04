@@ -25,6 +25,7 @@ class AppWidget extends StatelessWidget {
       navigatorKey: Modular.navigatorKey,
       title: 'Squad Ajudar',
       theme: ThemeData(
+        primaryColor: greenCustom,
         primarySwatch: greenCustom,
         fontFamily: 'Roboto',
       ),
@@ -113,5 +114,26 @@ Widget generateHomeButton(
         ],
       ),
     ),
+  );
+}
+
+showAlertDialog(BuildContext context, String msg) {
+  Widget okButton = FlatButton(
+    child: Text("OK"),
+    onPressed: () => Modular.link.pushNamed("/home"),
+  );
+  AlertDialog alerta = AlertDialog(
+    title: Text("Sucesso!"),
+    content: Text(msg),
+    actions: [
+      okButton,
+    ],
+  );
+  // exibe o dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alerta;
+    },
   );
 }
