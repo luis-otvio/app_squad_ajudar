@@ -122,15 +122,15 @@ abstract class _MapaControllerBase with Store {
         markerId: MarkerId(item.reference.documentID),
         position: LatLng(item.geoPoint.latitude, item.geoPoint.longitude),
         onTap: () {
-           this.cardDetalhado = true;
-           this.pontoColeta = item;
+          this.cardDetalhado = true;
+          this.pontoColeta = item;
         },
       );
 
       this.markers.add(marker);
     });
   }
-er
+
   @action
   void hideCardDetalhado() {
     this.cardDetalhado = false;
