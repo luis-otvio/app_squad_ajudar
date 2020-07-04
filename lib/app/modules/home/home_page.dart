@@ -18,12 +18,44 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: generateAppBar(widget.title, null),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Center(
+                  child: Text(
+                'SQUAD AJUDAR',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              )),
+              decoration: BoxDecoration(
+                color: Color(0xFF17B17B),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.format_list_bulleted),
+              title: Text('Área de gestão'),
+              onTap: () => Modular.link.pushNamed("admin"),
+            ),
+            ListTile(
+              leading: Icon(Icons.info_outline),
+              title: Text('Sobre'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+          ],
+        ),
+      ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width / 8,
-          vertical: 30,
+          vertical: 20,
         ),
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -36,25 +68,37 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           ),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            generateHomeButton(
-              context,
-              "Pontos de coleta",
-              "assets/img/icon_maps.png",
-              "/mapa",
+            Column(
+              children: [
+                generateHomeButton(
+                  context,
+                  "Pontos de coleta",
+                  "assets/img/icon_maps.png",
+                  "/mapa",
+                ),
+                generateHomeButton(
+                  context,
+                  "Como separar",
+                  "assets/img/icon_drop_trash.png",
+                  "/como_separar",
+                ),
+                generateHomeButton(
+                  context,
+                  "Dicas Locais",
+                  "assets/img/icon_marker.png",
+                  "/dica_local",
+                ),
+                generateHomeButton(
+                  context,
+                  "Sugestões",
+                  "assets/img/icon_suggestion.png",
+                  "/sugestoes",
+                ),
+              ],
             ),
-            generateHomeButton(
-              context,
-              "Como separar",
-              "assets/img/icon_drop_trash.png",
-              "/como_separar",
-            ),
-            generateHomeButton(
-              context,
-              "Dicas Locais",
-              "assets/img/icon_marker.png",
-              "/dica_local",
-            ),
+            
           ],
         ),
       ),

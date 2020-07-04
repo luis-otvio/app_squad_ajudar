@@ -26,8 +26,9 @@ class AppWidget extends StatelessWidget {
       title: 'Squad Ajudar',
       theme: ThemeData(
         primarySwatch: greenCustom,
+        fontFamily: 'Roboto',
       ),
-      initialRoute: '/',
+      initialRoute: '/home',
       onGenerateRoute: Modular.generateRoute,
     );
   }
@@ -65,7 +66,7 @@ Widget generateHomeButton(
     onTap: () => Modular.link.pushNamed(rota),
     child: Container(
       width: MediaQuery.of(context).size.width / 0.5,
-      margin: EdgeInsets.symmetric(vertical: 15),
+      margin: EdgeInsets.symmetric(vertical: 10),
       padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 10),
       decoration: BoxDecoration(
         color: Colors.white,
