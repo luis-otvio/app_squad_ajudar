@@ -108,3 +108,6 @@ flutter:
 
 scripts:
   mobx: flutter pub run build_runner watch --delete-conflicting-outputs
+
+# Comando para gerar modulos, deve estar com o slidy instalado.
+# slidy generate module modules/sugestoes -c
