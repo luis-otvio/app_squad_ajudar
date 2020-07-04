@@ -23,6 +23,8 @@ abstract class _MapaControllerBase with Store {
   GoogleMapController mapController;
   @observable
   Position position;
+  @observable 
+  double mapZoom;
   @observable
   ObservableStream<List<PontoColeta>> pontoColetaList;
   @observable

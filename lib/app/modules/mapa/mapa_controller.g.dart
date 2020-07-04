@@ -69,6 +69,21 @@ mixin _$MapaController on _MapaControllerBase, Store {
     });
   }
 
+  final _$mapZoomAtom = Atom(name: '_MapaControllerBase.mapZoom');
+
+  @override
+  double get mapZoom {
+    _$mapZoomAtom.reportRead();
+    return super.mapZoom;
+  }
+
+  @override
+  set mapZoom(double value) {
+    _$mapZoomAtom.reportWrite(value, super.mapZoom, () {
+      super.mapZoom = value;
+    });
+  }
+
   final _$pontoColetaListAtom =
       Atom(name: '_MapaControllerBase.pontoColetaList');
 
@@ -166,6 +181,7 @@ exibeMapa: ${exibeMapa},
 cardDetalhado: ${cardDetalhado},
 mapController: ${mapController},
 position: ${position},
+mapZoom: ${mapZoom},
 pontoColetaList: ${pontoColetaList},
 markers: ${markers},
 pontoColeta: ${pontoColeta}

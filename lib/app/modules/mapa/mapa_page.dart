@@ -86,17 +86,18 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
 
   Widget _googleMap() {
     return GoogleMap(
-      padding: const EdgeInsets.only(top: 66),
+      // padding: const EdgeInsets.only(top: 66),
       zoomControlsEnabled: false,
       myLocationEnabled: true,
       myLocationButtonEnabled: false,
       markers: controller.markers,
-      initialCameraPosition: CameraPosition(
+      minMaxZoomPreference: const MinMaxZoomPreference(12, 17),
+      initialCameraPosition: const CameraPosition(
         target: LatLng(
-          this.controller.position.latitude,
-          this.controller.position.longitude,
+          -19.740653,// this.controller.position.latitude,
+          -45.254100 // this.controller.position.longitude,
         ),
-        zoom: 17.0,
+        zoom: 13.0,
       ),
       onMapCreated: this.controller.onMapCreated,
     );
