@@ -149,17 +149,6 @@ mixin _$MapaController on _MapaControllerBase, Store {
   }
 
   @override
-  void _montaCardDetalhado(PontoColeta model) {
-    final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
-        name: '_MapaControllerBase._montaCardDetalhado');
-    try {
-      return super._montaCardDetalhado(model);
-    } finally {
-      _$_MapaControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void hideCardDetalhado() {
     final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
         name: '_MapaControllerBase.hideCardDetalhado');

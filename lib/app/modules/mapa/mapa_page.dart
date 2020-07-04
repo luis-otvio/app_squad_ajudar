@@ -46,7 +46,7 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
             Observer(
               builder: (_) => !this.controller.exibeMapa
                   ? Container(
-                      child: Text("data"),
+                      child: Text("Carregando Mapa... Por favor aguarde!"),
                     )
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -120,7 +120,7 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
             return ListTile(
               leading: Image(
                 image:
-                    AssetImage("assets/marker_icons/${diaSemana['icon'] ?? 'garbageTruck'}.png"),
+                    AssetImage("assets/marker_icons/${diaSemana['icon'] ?? 'garbage'}.png"),
                 height: 24,
                 fit: BoxFit.cover,
               ),

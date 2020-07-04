@@ -10,7 +10,7 @@ part 'mapa_controller.g.dart';
 class MapaController = _MapaControllerBase with _$MapaController;
 
 abstract class _MapaControllerBase with Store {
-  BitmapDescriptor garbageTruckIcon;
+  BitmapDescriptor garbageIcon;
   final Firestore firestore = Firestore.instance;
   final Geolocator geolocator = Geolocator();
 
@@ -34,8 +34,8 @@ abstract class _MapaControllerBase with Store {
   _MapaControllerBase() {
     BitmapDescriptor.fromAssetImage(
       ImageConfiguration(size: Size(64, 64)),
-      "assets/marker_icons/garbageTruck.png",
-    ).then((value) => this.garbageTruckIcon = value);
+      "assets/marker_icons/garbage.png",
+    ).then((value) => this.garbageIcon = value);
 
     this.getList();
 
@@ -118,23 +118,19 @@ abstract class _MapaControllerBase with Store {
   void posicaoMarcacao() {
     pontoColetaList.data.forEach((PontoColeta item) {
       Marker marker = Marker(
-        icon: this.garbageTruckIcon,
-        markerId: MarkerId(item.reference.toString()),
+        icon: this.garbageIcon,
+        markerId: MarkerId(item.reference.documentID),
         position: LatLng(item.geoPoint.latitude, item.geoPoint.longitude),
-        onTap: () => _montaCardDetalhado(item),
+        onTap: () {
+           this.cardDetalhado = true;
+           this.pontoColeta = item;
+        },
       );
 
       this.markers.add(marker);
     });
   }
-
-  @action
-  void _montaCardDetalhado(PontoColeta model) {
-    print(model.nome);
-    cardDetalhado = true;
-    this.pontoColeta = model;
-  }
-
+er
   @action
   void hideCardDetalhado() {
     this.cardDetalhado = false;
