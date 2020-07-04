@@ -124,7 +124,7 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
                 height: 24,
                 fit: BoxFit.cover,
               ),
-              title: Text(diaSemana['diaSemana'] ?? "Dia Semana"),
+              title: Text(diaSemana['diaSemanda'] ?? "Dia Semana"),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
