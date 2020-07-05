@@ -6,7 +6,7 @@ import 'sugestoes_controller.dart';
 
 class SugestoesPage extends StatefulWidget {
   final String title;
-  const SugestoesPage({Key key, this.title = "Sugestoes"}) : super(key: key);
+  const SugestoesPage({Key key, this.title = "Sugestões"}) : super(key: key);
 
   @override
   _SugestoesPageState createState() => _SugestoesPageState();

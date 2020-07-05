@@ -37,7 +37,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             ),
             ListTile(
               leading: Icon(Icons.format_list_bulleted),
-              title: Text('Área de gestão'),
+              title: Text('Área de Gestão'),
               onTap: () => Modular.link.pushNamed("admin"),
             ),
             ListTile(
@@ -74,13 +74,13 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               children: [
                 generateHomeButton(
                   context,
-                  "Pontos de coleta",
+                  "Pontos de Coleta",
                   "assets/img/icon_maps.png",
                   "/mapa",
                 ),
                 generateHomeButton(
                   context,
-                  "Como separar",
+                  "Como Separar",
                   "assets/img/icon_drop_trash.png",
                   "/como_separar",
                 ),
