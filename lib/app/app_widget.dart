@@ -28,6 +28,9 @@ class AppWidget extends StatelessWidget {
         primaryColor: greenCustom,
         primarySwatch: greenCustom,
         fontFamily: 'Roboto',
+        appBarTheme: AppBarTheme(
+          brightness: Brightness.light
+        )
       ),
       initialRoute: '/home',
       onGenerateRoute: Modular.generateRoute,

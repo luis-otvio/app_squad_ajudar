@@ -1,6 +1,9 @@
 import 'package:app_squad_ajudar/app/models/ponto_coleta.dart';
+import 'package:app_squad_ajudar/app/models/tipo_coleta.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/widgets.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
@@ -23,8 +26,10 @@ abstract class _MapaControllerBase with Store {
   GoogleMapController mapController;
   @observable
   Position position;
-  @observable 
+  @observable
   double mapZoom;
+  @observable
+  ObservableStream<List<TipoColeta>> tipoColetaList;
   @observable
   ObservableStream<List<PontoColeta>> pontoColetaList;
   @observable
@@ -57,6 +62,13 @@ abstract class _MapaControllerBase with Store {
         .map((query) {
       return query.documents.map((doc) {
         return PontoColeta.fromDocument(doc);
+      }).toList();
+    }).asObservable();
+
+    tipoColetaList =
+        firestore.collection(TipoColeta().toString()).snapshots().map((query) {
+      return query.documents.map((doc) {
+        return TipoColeta.fromDocument(doc);
       }).toList();
     }).asObservable();
   }
@@ -131,11 +143,45 @@ abstract class _MapaControllerBase with Store {
 
       this.markers.add(marker);
     });
+    _getCidadeLimpaBD();
   }
 
   @action
   void hideCardDetalhado() {
     this.cardDetalhado = false;
     this.pontoColeta = null;
+  }
+
+  void _getCidadeLimpaBD() async {
+    try {
+      Response<List> response = await Dio().get(
+          "http://www.bomdespacho.mg.gov.br/cidadelimpa/?api&action=getPosition");
+
+      if (response.data.isNotEmpty) {
+        response.data.forEach((item) {
+          Marker marker = Marker(
+            // icon: icons[item['Oid']],
+            markerId: MarkerId(item['Oid'].toString()),
+            position: LatLng(
+              double.parse(item['Lat']),
+              double.parse(item['Lng']),
+            ),
+            infoWindow: InfoWindow(title: "Caminhão de Coleta"),
+          );
+
+          this.markers.add(marker);
+        });
+      } else {
+        print("Sem dados da API da Prefeitura");
+      }
+      // print(response);
+    } catch (e) {
+      print("Falha ao Comunicar com a API da Prefeitura");
+      // print(e);
+    }
+  }
+
+  void aplicaFiltros() {
+    Modular.to.pop();
   }
 }

@@ -2,18 +2,31 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TipoColeta {
   DocumentReference reference;
-  String observacao;
-  String tipo;
+  String cor;
+  String descricao;
+  String nome;
   String prefixo;
+  String icon;
+  bool checked;
 
-  TipoColeta({this.reference, this.observacao, this.tipo, this.prefixo});
+  TipoColeta({
+    this.reference,
+    this.cor,
+    this.descricao,
+    this.nome,
+    this.prefixo,
+    this.icon,
+    this.checked = true,
+  });
 
   factory TipoColeta.fromDocument(DocumentSnapshot doc) {
     return TipoColeta(
       reference: doc.reference,
-      observacao: doc['observacao'],
-      tipo: doc['tipo'],
+      cor: doc['cor'],
+      descricao: doc['descricao'],
+      nome: doc['nome'],
       prefixo: doc['prefixo'],
+      icon: doc['icon'],
     );
   }
 
@@ -21,16 +34,20 @@ class TipoColeta {
     if (reference == null) {
       // add
       await Firestore.instance.collection(this.toString()).add({
-        'observacao': observacao,
-        'tipo': tipo,
+        'cor': cor,
+        'descricao': descricao,
+        'nome': nome,
         'prefixo': prefixo,
+        'icon': icon,
       });
     } else {
       // update
       await reference.updateData({
-        'observacao': observacao,
-        'tipo': tipo,
+        'cor': cor,
+        'descricao': descricao,
+        'nome': nome,
         'prefixo': prefixo,
+        'icon': icon,
       });
     }
   }

@@ -1,3 +1,4 @@
+import 'package:app_squad_ajudar/app/models/tipo_coleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -21,7 +22,14 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
           widget.title,
           Padding(
             padding: const EdgeInsets.only(right: 15),
-            child: Icon(Icons.filter_list),
+            child: IconButton(
+                icon: Icon(Icons.filter_list),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => _filtrarPontos(),
+                  );
+                }),
           )),
       body: Stack(
         children: [
@@ -86,7 +94,6 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
 
   Widget _googleMap() {
     return GoogleMap(
-      // padding: const EdgeInsets.only(top: 66),
       zoomControlsEnabled: false,
       myLocationEnabled: true,
       myLocationButtonEnabled: false,
@@ -94,9 +101,9 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
       minMaxZoomPreference: const MinMaxZoomPreference(12, 17),
       initialCameraPosition: const CameraPosition(
         target: LatLng(
-          -19.740653,// this.controller.position.latitude,
-          -45.254100 // this.controller.position.longitude,
-        ),
+            -19.740653, // this.controller.position.latitude,
+            -45.254100 // this.controller.position.longitude,
+            ),
         zoom: 13.0,
       ),
       onMapCreated: this.controller.onMapCreated,
@@ -120,8 +127,8 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
               children: this.controller.pontoColeta.diasSemana.map((diaSemana) {
             return ListTile(
               leading: Image(
-                image:
-                    AssetImage("assets/marker_icons/${diaSemana['icon'] ?? 'garbage'}.png"),
+                image: AssetImage(
+                    "assets/marker_icons/${diaSemana['icon'] ?? 'garbage'}.png"),
                 height: 24,
                 fit: BoxFit.cover,
               ),
@@ -137,6 +144,79 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
             );
           }).toList())
         ],
+      ),
+    );
+  }
+
+  Dialog _filtrarPontos() {
+    return Dialog(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            ListTile(
+              leading: Icon(Icons.filter_list),
+              title: Text("Filtros"),
+              trailing: IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () => Modular.to.pop(),
+              ),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height / 2,
+              child: Observer(builder: (_) {
+                if (this.controller.tipoColetaList.hasError) {
+                  return Text("Ops, algo deu errado! :/");
+                }
+
+                if (this.controller.tipoColetaList.data == null) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                List<TipoColeta> tiposColeta =
+                    this.controller.tipoColetaList.data;
+
+                if (tiposColeta.length == 0) {
+                  return Text("Filtros não carregado");
+                }
+
+                return ListView.builder(
+                  itemCount: tiposColeta.length,
+                  itemBuilder: (_, index) {
+                    TipoColeta model = tiposColeta[index];
+                    return ListTile(
+                      leading: Image(
+                        image: AssetImage(
+                            "assets/marker_icons/${model.icon ?? 'garbage'}.png"),
+                        height: 24,
+                        fit: BoxFit.cover,
+                      ),
+                      title: Text(model.nome),
+                      trailing: Checkbox(
+                        value: model.checked,
+                        onChanged: (value) {
+                          model.checked = !value;
+                        },
+                      ),
+                    );
+                  },
+                );
+              }),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  FlatButton(
+                    onPressed: this.controller.aplicaFiltros,
+                    child:
+                        Text("Salvar", style: TextStyle(color: Colors.green)),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
