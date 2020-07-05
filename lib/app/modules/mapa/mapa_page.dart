@@ -149,6 +149,7 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
   }
 
   Dialog _filtrarPontos() {
+    
     return Dialog(
       child: SingleChildScrollView(
         child: Column(
@@ -208,9 +209,11 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   FlatButton(
-                    onPressed: this.controller.aplicaFiltros,
-                    child:
-                        Text("Salvar", style: TextStyle(color: Colors.green)),
+                    onPressed: () => this.controller.aplicaFiltros(),
+                    child: Text(
+                      "Salvar",
+                      style: TextStyle(color: Colors.green),
+                    ),
                   )
                 ],
               ),

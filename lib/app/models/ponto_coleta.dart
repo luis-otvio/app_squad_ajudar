@@ -4,17 +4,19 @@ class PontoColeta {
   DocumentReference reference;
   String nome;
   String descricao;
+  String icon;
   GeoPoint geoPoint;
   List<dynamic> diasSemana;
   bool ativo;
 
-  PontoColeta({reference, nome, descricao, geoPoint, diasSemana, ativo}) {
+  PontoColeta({reference, nome, descricao, geoPoint, diasSemana, ativo, icon}) {
     this.reference = reference;
     this.nome = nome ?? "";
     this.descricao = descricao ?? "";
     this.geoPoint = geoPoint ?? GeoPoint(-19.740653, -45.254100);
     this.diasSemana = diasSemana;
     this.ativo = true;
+    this.icon = icon;
   }
 
   factory PontoColeta.fromDocument(DocumentSnapshot doc) {
@@ -22,6 +24,7 @@ class PontoColeta {
       reference: doc.reference,
       nome: doc['nome'],
       descricao: doc['descricao'],
+      icon: doc['icon'] ?? "",
       geoPoint: doc['geoPoint'],
       diasSemana: doc['diasSemana'] ?? List<Map>(),
       ativo: doc['ativo'] ?? false,
@@ -34,6 +37,7 @@ class PontoColeta {
       await Firestore.instance.collection(this.toString()).add({
         'nome': nome,
         'descricao': descricao,
+        'icon': icon,
         'geoPoint': geoPoint ?? GeoPoint(-19.740653, -45.254100),
         'diasSemana': diasSemana,
         'ativo': ativo,
@@ -43,12 +47,15 @@ class PontoColeta {
       await reference.updateData({
         'nome': nome,
         'descricao': descricao,
+        'icon': icon,
         'geoPoint': geoPoint ?? GeoPoint(-19.740653, -45.254100),
         'diasSemana': diasSemana,
         'ativo': ativo,
       });
     }
   }
+
+  // set latitude(double)
 
   @override
   String toString() {

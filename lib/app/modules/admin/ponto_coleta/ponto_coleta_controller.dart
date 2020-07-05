@@ -52,16 +52,17 @@ abstract class _PontoColetaControllerBase with Store {
                 ),
                 Container(
                   padding: EdgeInsets.all(12),
-                  height: MediaQuery.of(context).size.height / 3,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  height: MediaQuery.of(context).size.height / 2,
+                  child: ListView(
                     children: [
+                      Padding(padding: EdgeInsets.all(8)),
                       TextFormField(
                         initialValue: model.nome,
                         onChanged: (value) => model.nome = value,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(), labelText: "Nome"),
                       ),
+                      Padding(padding: EdgeInsets.all(8)),
                       TextFormField(
                         initialValue: model.descricao,
                         onChanged: (value) => model.descricao = value,
@@ -69,11 +70,29 @@ abstract class _PontoColetaControllerBase with Store {
                             border: OutlineInputBorder(),
                             labelText: "Descrição"),
                       ),
+                      Padding(padding: EdgeInsets.all(8)),
+                      TextFormField(
+                        initialValue: model.geoPoint.longitude.toString(),
+                        // onChanged: (value) => model.descricao = value,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Latitude"),
+                      ),
+                      Padding(padding: EdgeInsets.all(8)),
+                      TextFormField(
+                        initialValue: model.geoPoint.longitude.toString(),
+                        // onChanged: (value) => model.longitude = GeoPoint(latitude, longitude),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Longitude"),
+                      ),
+                      Padding(padding: EdgeInsets.all(8)),
                       CheckboxListTile(
                         value: model.ativo ?? false,
                         onChanged: (value) => model.ativo = value,
                         title: Text("Exibir no Mapa?"),
-                      )
+                      ),
+                      Padding(padding: EdgeInsets.all(8)),
                     ],
                   ),
                 ),
