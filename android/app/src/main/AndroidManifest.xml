@@ -11,8 +11,8 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="app_squad_ajudar"
-        android:icon="@mipmap/ic_launcher">
+        android:label="recycle+"
+        android:icon="@mipmap/launcher_icon">
 
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyCXxPLrUdELRLCiXTZiJLOTkVs2MZMDjaw"/>

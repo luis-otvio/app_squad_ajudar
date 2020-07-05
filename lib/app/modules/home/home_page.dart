@@ -5,7 +5,7 @@ import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-  const HomePage({Key key, this.title = "Squad Ajudar"}) : super(key: key);
+  const HomePage({Key key, this.title = "Recycle+"}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -25,7 +25,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             DrawerHeader(
               child: Center(
                   child: Text(
-                'SQUAD AJUDAR',
+                'Recycle+',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,

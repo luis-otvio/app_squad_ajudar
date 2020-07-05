@@ -23,7 +23,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: Modular.navigatorKey,
-      title: 'Squad Ajudar',
+      title: 'Recycle+',
       theme: ThemeData(
         primaryColor: greenCustom,
         primarySwatch: greenCustom,

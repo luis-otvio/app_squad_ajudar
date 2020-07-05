@@ -29,6 +29,7 @@ dependencies:
     sdk: flutter
   
   # Utilities
+  flutter_launcher_icons: ^0.7.5
   auto_size_text: ^2.1.0
   intro_slider: ^2.3.1
   modal_progress_hud: ^0.1.3
@@ -108,8 +109,14 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
+flutter_icons:
+  image_path: "assets/img/recycle_logo.png"
+  android: "launcher_icon"
+  # ios: true
+
 scripts:
   mobx: flutter pub run build_runner watch --delete-conflicting-outputs
 
 # Comando para gerar modulos, deve estar com o slidy instalado.
 # slidy generate module modules/sugestoes -c
+# Gerar Icone: flutter pub run flutter_launcher_icons:main
