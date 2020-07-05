@@ -6,13 +6,15 @@ class PontoColeta {
   String descricao;
   GeoPoint geoPoint;
   List<dynamic> diasSemana;
+  bool ativo;
 
-  PontoColeta({reference, nome, descricao, geoPoint, diasSemana}) {
+  PontoColeta({reference, nome, descricao, geoPoint, diasSemana, ativo}) {
     this.reference = reference;
     this.nome = nome ?? "";
     this.descricao = descricao ?? "";
     this.geoPoint = geoPoint ?? GeoPoint(-19.740653, -45.254100);
     this.diasSemana = diasSemana;
+    this.ativo = true;
   }
 
   factory PontoColeta.fromDocument(DocumentSnapshot doc) {
@@ -22,6 +24,7 @@ class PontoColeta {
       descricao: doc['descricao'],
       geoPoint: doc['geoPoint'],
       diasSemana: doc['diasSemana'] ?? List<Map>(),
+      ativo: doc['ativo'] ?? false,
     );
   }
 
@@ -33,6 +36,7 @@ class PontoColeta {
         'descricao': descricao,
         'geoPoint': geoPoint ?? GeoPoint(-19.740653, -45.254100),
         'diasSemana': diasSemana,
+        'ativo': ativo,
       });
     } else {
       // update
@@ -41,6 +45,7 @@ class PontoColeta {
         'descricao': descricao,
         'geoPoint': geoPoint ?? GeoPoint(-19.740653, -45.254100),
         'diasSemana': diasSemana,
+        'ativo': ativo,
       });
     }
   }

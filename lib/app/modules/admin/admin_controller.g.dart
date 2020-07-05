@@ -9,39 +9,48 @@ part of 'admin_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AdminController on _AdminControllerBase, Store {
-  final _$valueAtom = Atom(name: '_AdminControllerBase.value');
+  final _$userAtom = Atom(name: '_AdminControllerBase.user');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  FirebaseUser get user {
+    _$userAtom.reportRead();
+    return super.user;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set user(FirebaseUser value) {
+    _$userAtom.reportWrite(value, super.user, () {
+      super.user = value;
     });
   }
 
-  final _$_AdminControllerBaseActionController =
-      ActionController(name: '_AdminControllerBase');
+  final _$logadoAtom = Atom(name: '_AdminControllerBase.logado');
 
   @override
-  void increment() {
-    final _$actionInfo = _$_AdminControllerBaseActionController.startAction(
-        name: '_AdminControllerBase.increment');
-    try {
-      return super.increment();
-    } finally {
-      _$_AdminControllerBaseActionController.endAction(_$actionInfo);
-    }
+  bool get logado {
+    _$logadoAtom.reportRead();
+    return super.logado;
+  }
+
+  @override
+  set logado(bool value) {
+    _$logadoAtom.reportWrite(value, super.logado, () {
+      super.logado = value;
+    });
+  }
+
+  final _$singInAsyncAction = AsyncAction('_AdminControllerBase.singIn');
+
+  @override
+  Future<dynamic> singIn() {
+    return _$singInAsyncAction.run(() => super.singIn());
   }
 
   @override
   String toString() {
     return '''
-value: ${value}
+user: ${user},
+logado: ${logado}
     ''';
   }
 }

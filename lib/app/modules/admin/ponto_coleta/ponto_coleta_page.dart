@@ -1,3 +1,4 @@
+import 'package:app_squad_ajudar/app/app_widget.dart';
 import 'package:app_squad_ajudar/app/models/ponto_coleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -16,9 +17,7 @@ class _PontoColetaPageState extends ModularState<PontoColetaPage, PontoColetaCon
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: generateAppBar(widget.title, null),
       body: Observer(builder: (_) {
         if (controller.pontoColetaList.hasError) {
           return Center(
@@ -49,13 +48,19 @@ class _PontoColetaPageState extends ModularState<PontoColetaPage, PontoColetaCon
         return ListView.builder(
           itemCount: list.length,
           itemBuilder: (_, index) {
-            return ListTile(
-              title: Text(list[index].nome),
-              trailing: IconButton(
-                icon: Icon(Icons.edit),
-                onPressed: () => controller.addItem(context, list[index]),
-              ),
-              subtitle: Text(list[index].descricao ?? "")
+            PontoColeta model = list[index];
+            return Column(
+              children: [
+                ListTile(
+                  title: Text("${model.ativo ? '' : '(INATIVO) - '}${model.nome}"),
+                  trailing: IconButton(
+                    icon: Icon(Icons.edit),
+                    onPressed: () => controller.addItem(context, model),
+                  ),
+                  subtitle: Text(model.descricao ?? "")
+                ),
+                Divider()
+              ],
             );
           },
         );

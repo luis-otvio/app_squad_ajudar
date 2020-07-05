@@ -84,6 +84,21 @@ mixin _$MapaController on _MapaControllerBase, Store {
     });
   }
 
+  final _$tipoColetaListAtom = Atom(name: '_MapaControllerBase.tipoColetaList');
+
+  @override
+  ObservableStream<List<TipoColeta>> get tipoColetaList {
+    _$tipoColetaListAtom.reportRead();
+    return super.tipoColetaList;
+  }
+
+  @override
+  set tipoColetaList(ObservableStream<List<TipoColeta>> value) {
+    _$tipoColetaListAtom.reportWrite(value, super.tipoColetaList, () {
+      super.tipoColetaList = value;
+    });
+  }
+
   final _$pontoColetaListAtom =
       Atom(name: '_MapaControllerBase.pontoColetaList');
 
@@ -182,6 +197,7 @@ cardDetalhado: ${cardDetalhado},
 mapController: ${mapController},
 position: ${position},
 mapZoom: ${mapZoom},
+tipoColetaList: ${tipoColetaList},
 pontoColetaList: ${pontoColetaList},
 markers: ${markers},
 pontoColeta: ${pontoColeta}

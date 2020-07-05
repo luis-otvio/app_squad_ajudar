@@ -9,12 +9,14 @@ class AdminModule extends ChildModule {
   List<Bind> get binds => [
         Bind((i) => AdminController()),
         Bind((i) => PontoColetaController()),
+        // Bind((i) => PontoColetaController()),
       ];
 
   @override
   List<Router> get routers => [
         Router(Modular.initialRoute, child: (_, args) => AdminPage()),
         Router('/ponto_coleta', child: (_, args) => PontoColetaPage()),
+        // Router('/ponto_coleta', child: (_, args) => PontoColetaPage()),
       ];
 
   static Inject get to => Inject<AdminModule>.of();

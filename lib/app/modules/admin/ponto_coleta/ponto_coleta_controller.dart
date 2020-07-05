@@ -32,44 +32,79 @@ abstract class _PontoColetaControllerBase with Store {
     }).asObservable();
   }
 
-  void addItem(BuildContext context, [model]) {
+  @action
+  void addItem(BuildContext context, [PontoColeta model]) {
     model ??= PontoColeta();
     showDialog(
       context: context,
       builder: (_) {
-        return AlertDialog(
-          title: Text(
-              "${model.nome.isEmpty ? 'Adicionar' : 'Editar'} Ponto Coleta"),
-          content: Container(
-            height: MediaQuery.of(context).size.height / 3,
+        return Dialog(
+          child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TextFormField(
-                  initialValue: model.nome,
-                  onChanged: (value) => model.nome = value,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: "Nome"),
+                ListTile(
+                  title: Text(
+                      "${model.nome.isEmpty ? 'Adicionar' : 'Editar'} Ponto Coleta"),
+                  trailing: IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () => Modular.to.pop(),
+                  ),
                 ),
-                TextFormField(
-                  initialValue: model.descricao,
-                  onChanged: (value) => model.descricao = value,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: "Descrição"),
+                Container(
+                  padding: EdgeInsets.all(12),
+                  height: MediaQuery.of(context).size.height / 3,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextFormField(
+                        initialValue: model.nome,
+                        onChanged: (value) => model.nome = value,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(), labelText: "Nome"),
+                      ),
+                      TextFormField(
+                        initialValue: model.descricao,
+                        onChanged: (value) => model.descricao = value,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Descrição"),
+                      ),
+                      CheckboxListTile(
+                        value: model.ativo ?? false,
+                        onChanged: (value) => model.ativo = value,
+                        title: Text("Exibir no Mapa?"),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      FlatButton(
+                        onPressed: Modular.to.pop,
+                        child: Text(
+                          "Cancelar",
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                      FlatButton(
+                        onPressed: () async {
+                          await model.save();
+                          Modular.to.pop();
+                        },
+                        child: Text(
+                          "Salvar",
+                          style: TextStyle(color: Colors.green),
+                        ),
+                      )
+                    ],
+                  ),
                 )
               ],
             ),
           ),
-          actions: [
-            FlatButton(onPressed: Modular.to.pop, child: Text("Cancelar")),
-            FlatButton(
-              onPressed: () async {
-                await model.save();
-                Modular.to.pop();
-              },
-              child: Text("Salvar"),
-            )
-          ],
         );
       },
     );
