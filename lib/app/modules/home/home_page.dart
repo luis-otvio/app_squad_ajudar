@@ -45,17 +45,29 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               title: Text('Sobre'),
               onTap: () {
                 showDialog(
-                  context: context,
-                  child: Dialog(
-                    child: Column(
-                      children: [
-                        ListTile(
-                          title: Text("Recycle+"),
-                        )
-                      ],
-                    ),
-                  )
-                );
+                    context: context,
+                    child: Dialog(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ListTile(
+                              title: Text("Recycle+"),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                      "Sobre: Aplicativo mobile para educação ambiental na gestão dos resíduos sólidos, incentivando atividades de caráter educativo e pedagógico envolvendo a coleta seletiva e logística reversa"),
+                                  Padding(padding: EdgeInsets.all(8.0)),
+                                  Text("Versão: v1.0.0"),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ));
               },
             ),
           ],
