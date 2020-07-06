@@ -14,6 +14,7 @@ class MapaController = _MapaControllerBase with _$MapaController;
 
 abstract class _MapaControllerBase with Store {
   BitmapDescriptor garbageIcon;
+  BitmapDescriptor garbageTruck;
   final Firestore firestore = Firestore.instance;
   final Geolocator geolocator = Geolocator();
 
@@ -43,6 +44,10 @@ abstract class _MapaControllerBase with Store {
       ImageConfiguration(size: Size(64, 64)),
       "assets/marker_icons/garbage.png",
     ).then((value) => this.garbageIcon = value);
+    BitmapDescriptor.fromAssetImage(
+      ImageConfiguration(size: Size(64, 64)),
+      "assets/marker_icons/garbageTruck.png",
+    ).then((value) => this.garbageTruck = value);
 
     this.getList();
 
@@ -143,7 +148,7 @@ abstract class _MapaControllerBase with Store {
 
       this.markers.add(marker);
     });
-    _getCidadeLimpaBD();
+    getCidadeLimpaBD();
   }
 
   @action
@@ -152,15 +157,26 @@ abstract class _MapaControllerBase with Store {
     this.pontoColeta = null;
   }
 
-  void _getCidadeLimpaBD() async {
+  void getCidadeLimpaBD() async {
     try {
       Response<List> response = await Dio().get(
           "http://www.bomdespacho.mg.gov.br/cidadelimpa/?api&action=getPosition");
+      var data = response.data;
+      if (data == null) {
+        // Para teste
+        data = [
+          {"Oid": "650", "Lat": "-19.721509", "Lng": "-45.260421"},
+          {"Oid": "721", "Lat": "-19.736007", "Lng": "-45.249282"},
+          {"Oid": "573", "Lat": "-20.447698", "Lng": "-44.770877"},
+          {"Oid": "709", "Lat": "-19.721164", "Lng": "-45.26049"},
+          {"Oid": "708", "Lat": "-19.721149", "Lng": "-45.260498"}
+        ];
+      }
 
-      if (response.data.isNotEmpty) {
-        response.data.forEach((item) {
+      if (data.isNotEmpty) {
+        data.forEach((item) {
           Marker marker = Marker(
-            // icon: icons[item['Oid']],
+            icon: this.garbageTruck,
             markerId: MarkerId(item['Oid'].toString()),
             position: LatLng(
               double.parse(item['Lat']),
