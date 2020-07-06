@@ -40,6 +40,17 @@ mixin _$PontoColetaController on _PontoColetaControllerBase, Store {
   }
 
   @override
+  void addItem(BuildContext context, [PontoColeta model]) {
+    final _$actionInfo = _$_PontoColetaControllerBaseActionController
+        .startAction(name: '_PontoColetaControllerBase.addItem');
+    try {
+      return super.addItem(context, model);
+    } finally {
+      _$_PontoColetaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 pontoColetaList: ${pontoColetaList}

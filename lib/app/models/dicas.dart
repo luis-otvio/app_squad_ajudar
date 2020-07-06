@@ -1,22 +1,24 @@
-import 'package:app_squad_ajudar/app/models/ponto_coleta.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class RotaColeta {
+class Dicas {
   DocumentReference reference;
+  String titulo;
   String descricao;
-  PontoColeta pontoColeta;
+  String url;
 
-  RotaColeta({
-    this.reference,
-    this.descricao,
-    this.pontoColeta,
-  });
+  Dicas({reference, titulo, descricao, url}) {
+    this.reference = reference;
+    this.titulo = titulo ?? "";
+    this.descricao = descricao ?? "";
+    this.url = url;
+  }
 
-  factory RotaColeta.fromDocument(DocumentSnapshot doc) {
-    return RotaColeta(
+  factory Dicas.fromDocument(DocumentSnapshot doc) {
+    return Dicas(
       reference: doc.reference,
+      titulo: doc['titulo'],
       descricao: doc['descricao'],
-      pontoColeta: doc['pontoColeta'],
+      url: doc['url'] ?? "",
     );
   }
 
@@ -24,17 +26,21 @@ class RotaColeta {
     if (reference == null) {
       // add
       await Firestore.instance.collection(this.toString()).add({
+        'titulo': titulo,
         'descricao': descricao,
-        'pontoColeta': pontoColeta,
+        'url': url,
       });
     } else {
       // update
       await reference.updateData({
+        'titulo': titulo,
         'descricao': descricao,
-        'pontoColeta': pontoColeta,
+        'url': url,
       });
     }
   }
+
+  // set latitude(double)
 
   @override
   String toString() {

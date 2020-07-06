@@ -39,7 +39,7 @@ class _PontoColetaPageState extends ModularState<PontoColetaPage, PontoColetaCon
         if (list.length == 0) {
           return Center(
             child: RaisedButton(
-              child: Text("Cadastrar PontoColeta"),
+              child: Text("Carregar Pontos Coleta"),
               onPressed: controller.getList,
             ),
           );

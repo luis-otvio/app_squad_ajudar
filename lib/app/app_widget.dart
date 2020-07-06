@@ -25,13 +25,10 @@ class AppWidget extends StatelessWidget {
       navigatorKey: Modular.navigatorKey,
       title: 'Recycle+',
       theme: ThemeData(
-        primaryColor: greenCustom,
-        primarySwatch: greenCustom,
-        fontFamily: 'Roboto',
-        appBarTheme: AppBarTheme(
-          brightness: Brightness.light
-        )
-      ),
+          primaryColor: greenCustom,
+          primarySwatch: greenCustom,
+          fontFamily: 'Roboto',
+          appBarTheme: AppBarTheme(brightness: Brightness.light)),
       initialRoute: '/home',
       onGenerateRoute: Modular.generateRoute,
     );
