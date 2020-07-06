@@ -52,6 +52,12 @@ class TipoColeta {
     }
   }
 
+  Future delete() async {
+    if (reference != null) {
+      await reference.delete();
+    }
+  }
+
   @override
   String toString() {
     return this.runtimeType.toString();

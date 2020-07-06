@@ -1,40 +1,39 @@
-import 'package:app_squad_ajudar/app/models/ponto_coleta.dart';
+import 'package:app_squad_ajudar/app/models/tipo_coleta.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
-part 'ponto_coleta_controller.g.dart';
+part 'tipo_coleta_controller.g.dart';
 
-class PontoColetaController = _PontoColetaControllerBase
-    with _$PontoColetaController;
+class TipoColetaController = _TipoColetaControllerBase with _$TipoColetaController;
 
-abstract class _PontoColetaControllerBase with Store {
+abstract class _TipoColetaControllerBase with Store {
   final Firestore firestore = Firestore.instance;
 
-  _PontoColetaControllerBase() {
+  _TipoColetaControllerBase() {
     getList();
   }
 
   @observable
-  ObservableStream<List<PontoColeta>> pontoColetaList;
+  ObservableStream<List<TipoColeta>> tipoColetaList;
 
   @action
   void getList() {
-    pontoColetaList = firestore
-        .collection(PontoColeta().toString())
+    tipoColetaList = firestore
+        .collection(TipoColeta().toString())
         .orderBy("nome")
         .snapshots()
         .map((query) {
       return query.documents.map((doc) {
-        return PontoColeta.fromDocument(doc);
+        return TipoColeta.fromDocument(doc);
       }).toList();
     }).asObservable();
   }
 
   @action
-  void addItem(BuildContext context, [PontoColeta model]) {
-    model ??= PontoColeta();
+  void addItem(BuildContext context, [TipoColeta model]) {
+    model ??= TipoColeta();
     showDialog(
       context: context,
       builder: (_) {
@@ -44,7 +43,7 @@ abstract class _PontoColetaControllerBase with Store {
               children: [
                 ListTile(
                   title: Text(
-                      "${model.nome.isEmpty ? 'Adicionar' : 'Editar'} Ponto Coleta"),
+                      "${model.nome.isEmpty ? 'Adicionar' : 'Editar'} Dica Local"),
                   trailing: IconButton(
                     icon: Icon(Icons.close),
                     onPressed: () => Modular.to.pop(),
@@ -52,7 +51,7 @@ abstract class _PontoColetaControllerBase with Store {
                 ),
                 Container(
                   padding: EdgeInsets.all(12),
-                  height: MediaQuery.of(context).size.height / 2,
+                  height: MediaQuery.of(context).size.height - 450,
                   child: ListView(
                     children: [
                       Padding(padding: EdgeInsets.all(8)),
@@ -60,37 +59,16 @@ abstract class _PontoColetaControllerBase with Store {
                         initialValue: model.nome,
                         onChanged: (value) => model.nome = value,
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(), labelText: "Nome"),
+                            border: OutlineInputBorder(), labelText: "Título"),
                       ),
                       Padding(padding: EdgeInsets.all(8)),
                       TextFormField(
                         initialValue: model.descricao,
+                        maxLines: 8,
                         onChanged: (value) => model.descricao = value,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "Descrição"),
-                      ),
-                      Padding(padding: EdgeInsets.all(8)),
-                      TextFormField(
-                        initialValue: model.geoPoint.longitude.toString(),
-                        // onChanged: (value) => model.descricao = value,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: "Latitude"),
-                      ),
-                      Padding(padding: EdgeInsets.all(8)),
-                      TextFormField(
-                        initialValue: model.geoPoint.longitude.toString(),
-                        // onChanged: (value) => model.longitude = GeoPoint(latitude, longitude),
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: "Longitude"),
-                      ),
-                      Padding(padding: EdgeInsets.all(8)),
-                      CheckboxListTile(
-                        value: model.ativo ?? false,
-                        onChanged: (value) => model.ativo = value,
-                        title: Text("Exibir no Mapa?"),
                       ),
                       Padding(padding: EdgeInsets.all(8)),
                     ],

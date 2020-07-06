@@ -34,7 +34,10 @@ class _DicaLocalPageState
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width / 8,
+            vertical: 8.0,
+          ),
           child: Observer(builder: (_) {
             if (controller.dicasList.hasError) {
               return Center(

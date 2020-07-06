@@ -15,7 +15,7 @@ class PontoColeta {
     this.descricao = descricao ?? "";
     this.geoPoint = geoPoint ?? GeoPoint(-19.740653, -45.254100);
     this.diasSemana = diasSemana;
-    this.ativo = true;
+    this.ativo = ativo ?? false;
     this.icon = icon;
   }
 
@@ -55,7 +55,11 @@ class PontoColeta {
     }
   }
 
-  // set latitude(double)
+  Future delete() async {
+    if (reference != null) {
+      await reference.delete();
+    }
+  }
 
   @override
   String toString() {

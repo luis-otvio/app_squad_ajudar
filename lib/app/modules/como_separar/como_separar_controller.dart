@@ -9,7 +9,7 @@ class ComoSepararController = _ComoSepararControllerBase
 abstract class _ComoSepararControllerBase with Store {
   final Firestore firestore = Firestore.instance;
 
-  _DicaLocalControllerBase() {
-    // getList()
-  }
+  // _DicaLocalControllerBase() {
+  //   // getList()
+  // }
 }

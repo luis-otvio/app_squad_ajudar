@@ -1,26 +1,26 @@
 import 'package:app_squad_ajudar/app/app_widget.dart';
-import 'package:app_squad_ajudar/app/models/dicas.dart';
+import 'package:app_squad_ajudar/app/models/tipo_coleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'dicas_controller.dart';
+import 'tipo_coleta_controller.dart';
 
-class DicasPage extends StatefulWidget {
+class TipoColetaPage extends StatefulWidget {
   final String title;
-  const DicasPage({Key key, this.title = "Dicas Locais"})
+  const TipoColetaPage({Key key, this.title = "Tipos Coletas"})
       : super(key: key);
 
   @override
-  _DicasPageState createState() => _DicasPageState();
+  _TipoColetaPageState createState() => _TipoColetaPageState();
 }
 
-class _DicasPageState extends ModularState<DicasPage, DicasController> {
+class _TipoColetaPageState extends ModularState<TipoColetaPage, TipoColetaController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: generateAppBar(widget.title, null),
       body: Observer(builder: (_) {
-        if (controller.dicasList.hasError) {
+        if (controller.tipoColetaList.hasError) {
           return Center(
             child: RaisedButton(
               child: Text("Error :/"),
@@ -29,18 +29,18 @@ class _DicasPageState extends ModularState<DicasPage, DicasController> {
           );
         }
 
-        if (controller.dicasList.data == null) {
+        if (controller.tipoColetaList.data == null) {
           return Center(
             child: CircularProgressIndicator(),
           );
         }
 
-        List<Dicas> list = controller.dicasList.data;
+        List<TipoColeta> list = controller.tipoColetaList.data;
 
         if (list.length == 0) {
           return Center(
             child: RaisedButton(
-              child: Text("Carregar Pontos Coleta"),
+              child: Text("Carregar Tipos de Coleta"),
               onPressed: controller.getList,
             ),
           );
@@ -49,13 +49,13 @@ class _DicasPageState extends ModularState<DicasPage, DicasController> {
         return ListView.builder(
           itemCount: list.length,
           itemBuilder: (_, index) {
-            Dicas model = list[index];
+            TipoColeta model = list[index];
             return Padding(
               padding: const EdgeInsets.only(top: 8),
               child: Column(
                 children: [
                   ListTile(
-                    title: Text(model.titulo),
+                    title: Text(model.nome),
                     subtitle: Text(model.descricao ?? ""),
                     trailing: IconButton(
                       icon: Icon(Icons.edit),

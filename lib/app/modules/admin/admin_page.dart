@@ -76,11 +76,13 @@ class _AdminPageState extends ModularState<AdminPage, AdminController> {
                     hintText: "Email",
                   ),
                   textAlign: TextAlign.center,
+                  keyboardType: TextInputType.emailAddress,
                   controller: this.controller.emailController,
                 ),
                 SizedBox(height: 15),
                 TextFormField(
                   obscureText: true,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     hintText: "Senha",
                   ),
@@ -130,7 +132,7 @@ class _AdminPageState extends ModularState<AdminPage, AdminController> {
             child: ListTile(
               leading: Icon(Icons.title),
               title: Text("Tipos de Coleta"),
-              onTap: () => Modular.link.pushNamed('modules/admin/ponto_coleta'),
+              onTap: () => Modular.link.pushNamed('admin/tipo_coleta'),
             ),
           ),
         ),

@@ -44,8 +44,18 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               leading: Icon(Icons.info_outline),
               title: Text('Sobre'),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                showDialog(
+                  context: context,
+                  child: Dialog(
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text("Recycle+"),
+                        )
+                      ],
+                    ),
+                  )
+                );
               },
             ),
           ],
@@ -98,7 +108,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 ),
               ],
             ),
-            
           ],
         ),
       ),
