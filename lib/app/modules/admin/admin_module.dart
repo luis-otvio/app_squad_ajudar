@@ -1,4 +1,6 @@
 import 'package:app_squad_ajudar/app/modules/admin/admin_controller.dart';
+import 'package:app_squad_ajudar/app/modules/admin/dicas/dicas_controller.dart';
+import 'package:app_squad_ajudar/app/modules/admin/dicas/dicas_page.dart';
 import 'package:app_squad_ajudar/app/modules/admin/ponto_coleta/ponto_coleta_controller.dart';
 import 'package:app_squad_ajudar/app/modules/admin/ponto_coleta/ponto_coleta_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -9,14 +11,14 @@ class AdminModule extends ChildModule {
   List<Bind> get binds => [
         Bind((i) => AdminController()),
         Bind((i) => PontoColetaController()),
-        // Bind((i) => PontoColetaController()),
+        Bind((i) => DicasController()),
       ];
 
   @override
   List<Router> get routers => [
         Router(Modular.initialRoute, child: (_, args) => AdminPage()),
         Router('/ponto_coleta', child: (_, args) => PontoColetaPage()),
-        // Router('/ponto_coleta', child: (_, args) => PontoColetaPage()),
+        Router('/dicas', child: (_, args) => DicasPage()),
       ];
 
   static Inject get to => Inject<AdminModule>.of();

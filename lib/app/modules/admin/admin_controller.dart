@@ -1,3 +1,4 @@
+import 'package:app_squad_ajudar/app/app_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -18,15 +19,24 @@ abstract class _AdminControllerBase with Store {
   final senhaController = TextEditingController();
 
   @action
-  Future singIn() async {
+  Future singIn(BuildContext context) async {
     try {
       user = (await auth.signInWithEmailAndPassword(
         email: emailController.text,
         password: senhaController.text,
       ))
           .user;
-
     } catch (e) {
+      showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            title: Text("Ops, algo deu errado!"),
+            content: Text(
+                "Verifique se o email e senha inseridos estão corretos e tente novamente."),
+          );
+        },
+      );
       print(e);
     }
   }

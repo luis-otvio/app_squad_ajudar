@@ -42,8 +42,8 @@ mixin _$AdminController on _AdminControllerBase, Store {
   final _$singInAsyncAction = AsyncAction('_AdminControllerBase.singIn');
 
   @override
-  Future<dynamic> singIn() {
-    return _$singInAsyncAction.run(() => super.singIn());
+  Future<dynamic> singIn(BuildContext context) {
+    return _$singInAsyncAction.run(() => super.singIn(context));
   }
 
   @override

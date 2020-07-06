@@ -18,12 +18,12 @@ class _AdminPageState extends ModularState<AdminPage, AdminController> {
     return Scaffold(
       appBar: generateAppBar(widget.title, null),
       body: Observer(builder: (_) {
-        return this.controller.user != null ? _admin() : _login();
+        return this.controller.user != null ? _admin() : _login(context);
       }),
     );
   }
 
-  Widget _login() {
+  Widget _login(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(
@@ -73,7 +73,7 @@ class _AdminPageState extends ModularState<AdminPage, AdminController> {
                 SizedBox(height: 10),
                 TextFormField(
                   decoration: InputDecoration(
-                    hintText: "Usuário",
+                    hintText: "Email",
                   ),
                   textAlign: TextAlign.center,
                   controller: this.controller.emailController,
@@ -92,7 +92,7 @@ class _AdminPageState extends ModularState<AdminPage, AdminController> {
                   width: MediaQuery.of(context).size.width,
                   child: RaisedButton.icon(
                     color: Color(0xFF51C4B8),
-                    onPressed: this.controller.singIn,
+                    onPressed: () => this.controller.singIn(context),
                     icon: Icon(
                       Icons.arrow_forward_ios,
                       color: Colors.white,
@@ -115,17 +115,33 @@ class _AdminPageState extends ModularState<AdminPage, AdminController> {
     return ListView(
       children: <Widget>[
         Card(
-          child: ListTile(
-            leading: Icon(Icons.gps_fixed),
-            title: Text("Pontos de Coletas"),
-            onTap: () => Modular.to.pushNamed('admin/ponto_coleta'),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              leading: Icon(Icons.gps_fixed),
+              title: Text("Pontos de Coletas"),
+              onTap: () => Modular.to.pushNamed('admin/ponto_coleta'),
+            ),
           ),
         ),
         Card(
-          child: ListTile(
-            leading: Icon(Icons.map),
-            title: Text("Tipos de Coleta"),
-            onTap: () => Modular.link.pushNamed('modules/admin/ponto_coleta'),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              leading: Icon(Icons.title),
+              title: Text("Tipos de Coleta"),
+              onTap: () => Modular.link.pushNamed('modules/admin/ponto_coleta'),
+            ),
+          ),
+        ),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              leading: Icon(Icons.chat),
+              title: Text("Dicas Locais"),
+              onTap: () => Modular.link.pushNamed('admin/dicas'),
+            ),
           ),
         )
       ],

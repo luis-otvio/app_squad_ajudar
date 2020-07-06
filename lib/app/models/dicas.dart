@@ -40,7 +40,11 @@ class Dicas {
     }
   }
 
-  // set latitude(double)
+  Future delete() async {
+    if (reference != null) {
+      await reference.delete();
+    }
+  }
 
   @override
   String toString() {
