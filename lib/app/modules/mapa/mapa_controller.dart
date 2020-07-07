@@ -162,16 +162,16 @@ abstract class _MapaControllerBase with Store {
       Response<List> response = await Dio().get(
           "http://www.bomdespacho.mg.gov.br/cidadelimpa/?api&action=getPosition");
       var data = response.data;
-      if (data == null) {
-        // Para teste
-        data = [
-          {"Oid": "650", "Lat": "-19.721509", "Lng": "-45.260421"},
-          {"Oid": "721", "Lat": "-19.736007", "Lng": "-45.249282"},
-          {"Oid": "573", "Lat": "-20.447698", "Lng": "-44.770877"},
-          {"Oid": "709", "Lat": "-19.721164", "Lng": "-45.26049"},
-          {"Oid": "708", "Lat": "-19.721149", "Lng": "-45.260498"}
-        ];
-      }
+      // if (data == null) {
+      //   // Para teste
+      //   data = [
+      //     {"Oid": "650", "Lat": "-19.721509", "Lng": "-45.260421"},
+      //     {"Oid": "721", "Lat": "-19.736007", "Lng": "-45.249282"},
+      //     {"Oid": "573", "Lat": "-20.447698", "Lng": "-44.770877"},
+      //     {"Oid": "709", "Lat": "-19.721164", "Lng": "-45.26049"},
+      //     {"Oid": "708", "Lat": "-19.721149", "Lng": "-45.260498"}
+      //   ];
+      // }
 
       if (data.isNotEmpty) {
         data.forEach((item) {
