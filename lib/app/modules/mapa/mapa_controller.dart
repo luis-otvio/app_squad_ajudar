@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app_squad_ajudar/app/models/ponto_coleta.dart';
 import 'package:app_squad_ajudar/app/models/tipo_coleta.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -159,22 +161,13 @@ abstract class _MapaControllerBase with Store {
 
   void getCidadeLimpaBD() async {
     try {
-      Response<List> response = await Dio().get(
+      Response response = await Dio().get(
           "http://www.bomdespacho.mg.gov.br/cidadelimpa/?api&action=getPosition");
-      var data = response.data;
-      // if (data == null) {
-      //   // Para teste
-      //   data = [
-      //     {"Oid": "650", "Lat": "-19.721509", "Lng": "-45.260421"},
-      //     {"Oid": "721", "Lat": "-19.736007", "Lng": "-45.249282"},
-      //     {"Oid": "573", "Lat": "-20.447698", "Lng": "-44.770877"},
-      //     {"Oid": "709", "Lat": "-19.721164", "Lng": "-45.26049"},
-      //     {"Oid": "708", "Lat": "-19.721149", "Lng": "-45.260498"}
-      //   ];
-      // }
+      var data = jsonDecode(response.data);
 
       if (data.isNotEmpty) {
         data.forEach((item) {
+          print(item);
           Marker marker = Marker(
             icon: this.garbageTruck,
             markerId: MarkerId(item['Oid'].toString()),
